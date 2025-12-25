@@ -4,370 +4,147 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bhakthi Heritage Art Calendar 2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #d4af37; --charcoal: #1a1a1a; --paper: #fdf5e6; --brown: #4e342e; }
-        * { box-sizing: border-box; scroll-behavior: smooth; }
-        body, html { margin: 0; padding: 0; width: 100%; background: var(--paper); color: var(--brown); font-family: 'Lora', serif; }
+        :root { --gold: #d4af37; --bg: #0d0d0d; --card: rgba(255, 255, 255, 0.04); --accent: #fdf5e6; --brown: #4e342e; }
+        * { box-sizing: border-box; }
+        body, html { margin: 0; padding: 0; background: var(--bg); color: var(--accent); font-family: 'Lora', serif; overflow-x: hidden; }
 
-        /* FIXED LOGO ON ALL PAGES */
+        /* INNOVATIVE PROGRESS LOGO */
         #project-logo {
-            position: fixed; top: 20px; left: 20px; z-index: 1000;
-            width: 110px; height: 110px; border: 3px double var(--gold);
-            border-radius: 50%; background: white; display: flex; align-items: center;
-            justify-content: center; text-align: center; font-family: 'Cinzel';
-            font-size: 9px; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            padding: 10px; line-height: 1.2; pointer-events: none; color: var(--brown);
+            position: fixed; top: 25px; left: 25px; z-index: 9999;
+            width: 100px; height: 100px; border-radius: 50%;
+            background: white; border: 4px solid var(--gold);
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; font-family: 'Cinzel'; font-size: 8px;
+            line-height: 1.1; box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            color: var(--brown); font-weight: bold; pointer-events: none;
         }
 
-        /* PAGE DISPLAY LOGIC */
-        .page { display: none; min-height: 100vh; position: relative; }
-        .page.active { display: block; }
+        /* DYNAMIC BACKGROUND */
+        .museum-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000 100%);
+            z-index: -1;
+        }
 
-        /* CONTENT STYLING */
-        .container { max-width: 800px; margin: 0 auto; padding: 130px 20px 40px; }
-        header { text-align: center; margin-bottom: 50px; border-bottom: 1px solid rgba(212,175,55,0.3); padding-bottom: 20px; }
-        h1 { font-family: 'Cinzel', serif; font-size: clamp(2.2rem, 8vw, 3.5rem); margin: 0; color: var(--brown); }
-        .tagline { color: var(--gold); font-family: 'Cinzel'; letter-spacing: 2px; font-weight: bold; }
+        /* PAGE DISPLAY */
+        .page { display: none; min-height: 100vh; position: relative; opacity: 0; transform: translateY(20px); transition: 0.8s ease-out; }
+        .page.active { display: block; opacity: 1; transform: translateY(0); }
 
-        .content-card { background: white; padding: 40px; border-radius: 4px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); border: 1px solid rgba(212,175,55,0.2); margin-bottom: 40px; }
-        p { line-height: 1.9; font-size: 1.1rem; margin-bottom: 25px; text-align: justify; }
-        .hero-img { width: 100%; max-width: 500px; border: 8px solid white; outline: 1px solid var(--gold); margin: 0 auto 40px; display: block; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .quote { font-style: italic; border-left: 5px solid var(--gold); padding: 20px 30px; margin: 40px 0; font-weight: bold; background: #fffcf5; font-size: 1.3rem; line-height: 1.5; color: var(--charcoal); }
-        h3 { font-family: 'Cinzel', serif; color: var(--gold); border-bottom: 2px solid var(--gold); display: inline-block; padding-bottom: 5px; margin-top: 40px; margin-bottom: 25px; }
+        .container { max-width: 850px; margin: 0 auto; padding: 140px 20px 60px; }
 
-        /* VIDEO STYLES */
-        .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin: 25px 0; border: 1px solid var(--gold); background: #000; }
-        .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        .video-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 30px 0; }
-        .video-label { font-size: 0.9rem; font-weight: bold; text-align: center; display: block; margin-top: -15px; color: var(--gold); font-family: 'Cinzel'; margin-bottom: 20px; }
+        /* INNOVATIVE CARD STYLE */
+        .article-card {
+            background: var(--card); backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 15px;
+            padding: 50px; margin-bottom: 50px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
 
-        /* NAV & FOOTERS */
-        .scan-prompt { background: var(--brown); color: white; padding: 60px 20px; text-align: center; margin-top: 60px; }
-        .btn { background: var(--gold); color: white; padding: 18px 50px; font-family: 'Cinzel'; font-weight: bold; border-radius: 50px; border: none; cursor: pointer; text-decoration: none; display: inline-block; transition: 0.3s; }
-        .btn:hover { background: white; color: var(--brown); transform: translateY(-3px); }
-        
-        .footer { padding: 50px 20px; text-align: center; font-size: 0.85rem; background: var(--charcoal); color: #888; border-top: 3px solid var(--gold); line-height: 1.8; }
+        header h1 { font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 10vw, 4rem); margin: 0; color: var(--gold); text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .tagline { font-family: 'Cinzel'; letter-spacing: 4px; color: var(--gold); opacity: 0.8; font-size: 0.9rem; }
+
+        p { line-height: 2; font-size: 1.15rem; color: #e0e0e0; margin-bottom: 30px; text-align: justify; }
+        .highlight-quote { 
+            font-style: italic; border-left: 3px solid var(--gold); padding: 20px 40px;
+            background: rgba(212, 175, 55, 0.05); margin: 40px 0; font-size: 1.3rem; color: var(--gold);
+        }
+
+        /* TURBO VIDEO BOX */
+        .video-launcher {
+            position: relative; width: 100%; padding-bottom: 56.25%;
+            background-size: cover; background-position: center;
+            border: 1px solid var(--gold); margin: 40px 0; cursor: pointer;
+            transition: 0.4s;
+        }
+        .video-launcher:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(212, 175, 55, 0.3); }
+        .video-launcher::before {
+            content: '▶ WATCH SACRED MOMENT';
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.7); padding: 15px 30px; border: 1px solid var(--gold);
+            font-family: 'Cinzel'; font-size: 0.9rem; color: var(--gold);
+        }
+        .video-launcher iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+        .video-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+        /* BUTTONS */
+        .btn {
+            background: var(--gold); color: #000; padding: 20px 50px;
+            font-family: 'Cinzel'; font-weight: bold; border-radius: 4px;
+            text-decoration: none; display: inline-block; cursor: pointer;
+            transition: 0.3s; border: none;
+        }
+        .btn:hover { background: white; transform: translateY(-5px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4); }
+
+        .footer { 
+            padding: 60px 20px; text-align: center; background: #000; 
+            border-top: 1px solid var(--gold); font-size: 0.8rem; color: #666;
+        }
         .footer b { color: var(--gold); }
 
-        @media (max-width: 600px) { 
-            #project-logo { width: 85px; height: 85px; font-size: 7px; top: 10px; left: 10px; } 
-            .container { padding-top: 100px; }
-            .content-card { padding: 25px; }
+        @media (max-width: 600px) {
+            .article-card { padding: 25px; }
             .video-grid { grid-template-columns: 1fr; }
+            #project-logo { width: 80px; height: 80px; font-size: 6px; }
         }
     </style>
 </head>
 <body>
 
+    <div class="museum-bg"></div>
     <div id="project-logo">BHAKTHI<br>HERITAGE<br>ART CALENDAR<br>2026</div>
 
     <section id="intro" class="page">
         <div class="container" style="text-align: center;">
             <header>
-                <p class="tagline">Art Calendar 2026</p>
-                <h1 style="font-size: 4rem;">BHAKTHI</h1>
-                <p style="font-style: italic; font-weight: bold; font-size: 1.4rem;">EXPERIENCING PUREST FORM OF LOVE!</p>
+                <p class="tagline">The Sacred Pilgrimage</p>
+                <h1 style="font-size: 5rem;">BHAKTHI</h1>
+                <p style="font-style: italic; font-weight: bold; font-size: 1.5rem;">EXPERIENCING PUREST FORM OF LOVE!</p>
             </header>
-            <div class="content-card">
-                <p>Welcome to a year-long pilgrimage of the soul. This calendar is a sacred window into the lives of masters who realized the Divine through the shortest and sweetest path: Pure Love. This digital companion exists to bridge the art on your wall with the living wisdom of the saints.</p>
-                <p>As you scan the artwork each month, you will unlock their stories, the melodies of their hearts, and deep-dive articles curated to transform your daily life. Let the journey begin.</p>
-                <button class="btn" onclick="showSection('jan')">BEGIN THE JOURNEY</button>
+            <div class="article-card">
+                <p>Welcome to a year-long journey beyond the physical realm. This calendar is not just a collection of dates, but a gateway to a higher vibration. Bhakti is the ancient Indian art of disappearing into the Divine. It is the shortest path, the sweetest nectar, and the ultimate rebellion against the ego.</p>
+                <button class="btn" onclick="showSection('jan')">ENTER THE SACRED GALLERY</button>
             </div>
         </div>
-        <div class="footer">
-            Illustrations & Design: <b>Sweta Sairam</b><br>
-            Playlist Curation: <b>Sai Mallesh</b><br>
-            Follow: <b>@swetcha_art</b> & <b>@Sai_prema_photography</b>
-        </div>
+        <div class="footer">Illustrations & Design: <b>Sweta Sairam</b> | Curation: <b>Sai Mallesh</b><br>Follow: <b>@swetcha_art</b> & <b>@Sai_prema_photography</b></div>
     </section>
 
     <section id="jan" class="page">
         <div class="container">
             <header><h1>January</h1><p class="tagline">What is Bhakthi?</p></header>
-            <div class="content-card">
-                <img src="https://static.sadhguru.org/d/46272/1626099405-bhakti-path.jpg" class="hero-img">
-                <p>Bhakti is often mistaken for ritual, but in its truest sense, it is the nectar of total surrender. It is a state where the seeker’s ego dissolves into the infinite love of the Divine. Unlike paths of rigorous study or physical penance, Bhakti is the path of the heart—accessible to every human being regardless of background. It is described as 'Parama Prema Rupa'—the very form of supreme love.</p>
-                <div class="quote">"Devotion is the bridge where the seeker and the Sought become one. Logic ends where Bhakti begins."</div>
+            <div class="article-card">
+                <p>Bhakti is often mistaken for ritual, but it is actually the language of the soul. It is described in the scriptures as <i>Parama Prema Rupa</i>—the very embodiment of supreme love. It begins when the seeker realizes that logic has limits, but the heart is infinite. In this deep dive, we explore how devotion acts as a bridge where the "Self" disappears and only the "Divine" remains.</p>
                 
-                <p>To understand Bhakti, we must first learn to strip away our worldly masks. The song <b>Jhoot Chor</b> serves as a perfect metaphor for this, representing the Divine as a thief who steals our falsehoods to reveal the pure soul within. Following this, <b>Madhusudan Sai</b> provides a philosophical foundation, explaining why the path of love is the most direct route to the Truth in the modern age.</p>
-                
-                <div class="video-grid">
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/n4p8E_5xHLo"></iframe></div><span class="video-label">Jhoot Chor - The Essence</span></div>
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/fD_t7-SPlA8"></iframe></div><span class="video-label">Madhusudan Sai on Bhakti</span></div>
-                </div>
+                <div class="highlight-quote">"Devotion is the bridge where the seeker and the Sought become one."</div>
 
-                <p>Bhakti is not just a silent thought; it is an active connection. The final videos in this month's deep dive explore the concept of the <b>Eternal Connection</b> and the power of <b>Kirtan</b>—where individual longing merges into the high-vibrational energy of collective chanting. These tools are designed to help you start your 2026 with a heart tuned to the Divine frequency.</p>
+                <p>To find the truth, we must strip away the lies. The song <b>Jhoot Chor</b> serves as a spiritual mirror, representing the Divine as a thief who steals our ego to reveal our light. <b>Madhusudan Sai</b> then guides us through the mechanics of this path, explaining why love is the most advanced technology for spiritual growth.</p>
+                
+                <div class="video-launcher" style="background-image: url('https://img.youtube.com/vi/n4p8E_5xHLo/0.jpg')" onclick="loadVideo(this, 'n4p8E_5xHLo')"></div>
+                <div class="video-launcher" style="background-image: url('https://img.youtube.com/vi/fD_t7-SPlA8/0.jpg')" onclick="loadVideo(this, 'fD_t7-SPlA8')"></div>
+
+                <p>Finally, we touch upon the <b>Eternal Connection</b> and the power of <b>Kirtan</b>. Bhakti is not just a silent thought; it is an active, vibrating resonance. Through collective chanting, the individual ego is drowned out by the thunder of divine names.</p>
                 
                 <div class="video-grid">
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/zO99U-h8q_k"></iframe></div><span class="video-label">The Eternal Connection</span></div>
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/W9l6vN4O3rM"></iframe></div><span class="video-label">The Power of Kirtan</span></div>
+                    <div class="video-launcher" style="background-image: url('https://img.youtube.com/vi/zO99U-h8q_k/0.jpg')" onclick="loadVideo(this, 'zO99U-h8q_k')"></div>
+                    <div class="video-launcher" style="background-image: url('https://img.youtube.com/vi/W9l6vN4O3rM/0.jpg')" onclick="loadVideo(this, 'W9l6vN4O3rM')"></div>
                 </div>
             </div>
+            <button class="btn" style="width:100%" onclick="alert('Scan February on your physical calendar!')">📷 SCAN FEBRUARY ARTWORK</button>
         </div>
-        <div class="scan-prompt">
-            <p>Ready for February? Turn your calendar and scan the artwork of Sant Tulsidas.</p>
-            <button class="btn" onclick="alert('Scan February artwork on your calendar!')">📷 SCAN FEBRUARY</button>
-        </div>
-        <div class="footer">Illustrations: <b>Sweta Sairam</b> | Content: <b>Sai Mallesh</b><br>Follow: <b>@swetcha_art</b></div>
+        <div class="footer">Illustrations: <b>Sweta Sairam</b> | Curation: <b>Sai Mallesh</b></div>
     </section>
 
     <section id="feb" class="page">
         <div class="container">
             <header><h1>February</h1><p class="tagline">Sant Tulsidas</p></header>
-            <div class="content-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRU6os3H0y_x_WXAWiI4-cpIemsFXqYceZ5Rg&s" class="hero-img">
-                <p>Sant Tulsidas was not always a saint; he was once a man deeply entangled in the web of worldly passion. His legendary obsession with his wife, Ratnavali, led him to cross a flooded river at midnight just to catch a glimpse of her. It was in this moment of extreme human desire that Ratnavali spoke the words that would birth a master: "If you loved Rama with even half the intensity you feel for this body of bone and skin, you would have crossed the ocean of existence."</p>
-                <div class="quote">"If you loved the Divine with the same intensity you feel for this body, you would be realized in an instant."</div>
+            <div class="article-card">
+                <p>Sant Tulsidas was a 16th-century mystic who transformed the energy of earthly passion into a cosmic fire for Lord Rama. His life story is a profound lesson in redirection. Blinded by attachment to his wife, Ratnavali, he once crossed a flooded river at midnight just to catch a glimpse of her. Her sharp words—reminding him that even half that love for God would grant him liberation—became the spark of his sainthood.</p>
                 
-                <p>This spiritual shock redirected Tulsidas’s life. He surrendered entirely to Sri Rama, eventually composing the <b>Ramcharitmanas</b>. Below, you can witness this transformation in the <b>Upanishad Ganga</b> cinematic episode and the <b>Amar Chitra Katha</b> animated biography, both of which capture the precise moment of his awakening.</p>
+                <div class="highlight-quote">"If you loved the Divine with the same intensity you feel for this body, you would be realized in an instant."</div>
+                
+                <p>Following this awakening, Tulsidas surrendered entirely to Rama-Nama. He gave us the <b>Ramcharitmanas</b>, bringing the sacred Ramayana into the language of the common heart. Witness this transformation in the cinematic <b>Upanishad Ganga</b> episode and the <b>Amar Chitra Katha</b> animated biography below.</p>
 
                 <div class="video-grid">
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/4-BzjHYhc-M"></iframe></div><span class="video-label">The Transformation (Upanishad Ganga)</span></div>
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/OxzVwF6Anzw"></iframe></div><span class="video-label">Tulsidas - Life Story</span></div>
-                </div>
-
-                <p>His devotion flowed into compositions that have become the spiritual armor of India. The <b>Hanuman Chalisa</b>, presented here in the meditative voice of <b>M.S. Subbulakshmi Amma</b>, is perhaps the most chanted hymn in the world. To understand how his verses bridge the centuries, explore the modern <b>Lo-fi renditions by Rasraj Ji Maharaj</b>, which bring Tulsidas's energy to a whole new generation.</p>
-
-                <div class="video-box"><iframe src="https://www.youtube.com/embed/z56DlPcG8k8"></iframe></div>
-                <span class="video-label">Hanuman Chalisa by M.S. Subbulakshmi</span>
-
-                <div class="video-grid">
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/ZFb-W1PAcnI"></iframe></div><span class="video-label">Modern Devotion - Rasraj Ji</span></div>
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/R3NxAR60jlo"></iframe></div><span class="video-label">Lo-fi Bhakti Compilation</span></div>
-                </div>
-            </div>
-        </div>
-        <div class="scan-prompt"><button class="btn" onclick="alert('Scan March on your calendar!')">📷 SCAN MARCH</button></div>
-        <div class="footer">Illustrations: <b>Sweta Sairam</b> | Content: <b>Sai Mallesh</b></div>
-    </section>
-
-    <section id="mar" class="page">
-        <div class="container">
-            <header><h1>March</h1><p class="tagline">Goda Devi (Andal)</p></header>
-            <div class="content-card">
-                <img src="https://tirumalatirupatiyatra.in/wp-content/uploads/2024/03/Andal-or-Goda-Devi-Dressed-up-as-Child-1.jpg" class="hero-img">
-                <p>Andal is the only female Alvar among the twelve great Vaishnava saints of South India. Found as a baby under a Tulsi plant in Srivilliputhur, she is revered as the incarnation of Bhudevi (Mother Earth). Her devotion was unique—it was a 'sovereign claim' over the Divine. She refused to marry any man, declaring that she belonged only to Lord Ranganatha. Her name 'Andal' means 'the one who ruled' the Lord with her love.</p>
-                
-                <p>She is most celebrated for the <b>Tiruppavai</b>, 30 stanzas that call upon souls to wake up and seek the grace of Lord Narayana. Below, explore her divine biopic in English to understand her childhood, followed by a traditional <b>Tamil Harikatha</b> that narrates her legend with musical flair. Finally, <b>Sri Chinna Jeeyar Swamiji</b> provides a profound discourse on the philosophical depth of her verses.</p>
-                
-                <div class="video-box"><iframe src="https://www.youtube.com/embed/4ESHzf8FSzU"></iframe></div>
-                <span class="video-label">Andal Devi - English Biopic</span>
-                
-                <div class="video-grid">
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/wvvL746c_ww"></iframe></div><span class="video-label">Tamil Harikatha Story</span></div>
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/WmL1852GDt8"></iframe></div><span class="video-label">Tiruppavai Discourse</span></div>
-                </div>
-
-                <p>To Andal, the Lord was not a distant deity but a beloved groom. Her works like <i>Nachiar Tirumozhi</i> describe her dream wedding with the Lord, a sequence so sacred it is still sung in traditional South Indian weddings today. Through her, we learn that devotion can be as intimate and beautiful as a bride’s love.</p>
-            </div>
-        </div>
-        <div class="scan-prompt"><button class="btn" onclick="alert('Scan April on your calendar!')">📷 SCAN APRIL</button></div>
-        <div class="footer">Illustrations: <b>Sweta Sairam</b> | Content: <b>Sai Mallesh</b></div>
-    </section>
-
-    <section id="apr" class="page">
-        <div class="container">
-            <header><h1>April</h1><p class="tagline">Saint Tyagaraja</p></header>
-            <div class="content-card">
-                <img src="https://images.unsplash.com/photo-1514466791435-90ae896d43f0?auto=format&fit=crop&w=800" class="hero-img">
-                <p>Saint Tyagaraja, the crown jewel of Carnatic music, shared a relationship with Lord Rama that was raw, honest, and profoundly human. He didn't always sing in praise; he frequently argued with God, complained about his suffering, and questioned Rama’s compassion. This movement from <b>Ninda</b> (reproach/blame) to <b>Ananda</b> (supreme bliss) is the hallmark of his spiritual journey.</p>
-                
-                <p>When his own brother threw his beloved Rama idols into the river Kaveri, his anguish gave birth to some of the most soul-stirring music ever composed. Explore this incredible transformation through the masterful narration of <b>Vinaya Varanasi</b>, whose storytelling bridges the gap between Tyagaraja’s ancient kritis and our modern lives.</p>
-                
-                <div class="video-box"><iframe src="https://www.youtube.com/embed/yhjND38WN54?start=280"></iframe></div>
-                <span class="video-label">From Blame to Bliss - Vinaya Varanasi</span>
-
-                <p>His kritis (compositions) are not merely songs; they are steps toward liberation. To experience the 'Ananda' Tyagaraja eventually reached, listen to his soothing melodies brought to life by <b>M.S. Subbulakshmi Amma</b>. Her voice captures the stillness and peace that comes after a lifetime of total surrender to Rama-Nama.</p>
-                
-                <div class="video-box"><iframe src="https://www.youtube.com/embed/lzkUr1w7Mak?start=280"></iframe></div>
-                <span class="video-label">Musical Peace - M.S. Subbulakshmi</span>
-            </div>
-        </div>
-        <div class="scan-prompt"><button class="btn" onclick="alert('Scan May on your calendar!')">📷 SCAN MAY</button></div>
-        <div class="footer">Illustrations: <b>Sweta Sairam</b> | Content: <b>Sai Mallesh</b></div>
-    </section>
-
-    <section id="may" class="page">
-        <div class="container">
-            <header><h1>May</h1><p class="tagline">Saint Sakkubai</p></header>
-            <div class="content-card">
-                <p>Sakkubai's life is a testimony to the power of unwavering endurance. A devotee of Lord Vitthala, she faced extreme hardship in her household. Her devotion was so magnetic that the Lord Himself took her form to perform her chores so she could visit Pandharpur. Through Sakkubai, we learn that devotion doesn't require us to escape our duties, but to do them with a heart fixed on the Divine.</p>
-                
-                <div class="video-box"><iframe src="https://www.youtube.com/embed/ZckaWGoDwys"></iframe></div>
-                <span class="video-label">Sant Sakkubai - Full Movie</span>
-                
-                <div class="video-grid">
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/7l6JJuMlwyc"></iframe></div><span class="video-label">Soulful Marathi Abhang</span></div>
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/ZckaWGoDwys"></iframe></div><span class="video-label">The Story of Sakhu</span></div>
-                </div>
-                <p>Experience her story through the classic Marathi devotional cinematic versions above, which highlight her journey from suffering to the ultimate embrace of Lord Vitthala.</p>
-            </div>
-        </div>
-        <div class="scan-prompt"><button class="btn" onclick="alert('Scan June on your calendar!')">📷 SCAN JUNE</button></div>
-        <div class="footer"><b>Bhakthi Heritage Project 2026</b></div>
-    </section>
-
-    <section id="jun" class="page">
-        <div class="container">
-            <header><h1>June</h1><p class="tagline">Saint Kabir</p></header>
-            <div class="content-card">
-                <p>Kabir, the weaver saint of Varanasi, stripped away the complexities of religion to reveal the simple Truth. He taught that the Divine is not in temples or mosques, but within the honest heart. His <i>Dohas</i> are spiritual arrows that pierce the ego. Kabir lived a life of total integrity, showing that one can be a householder and a mystic simultaneously.</p>
-                
-                <div class="quote">"The musk is in the deer, but it seeks it in the grass. So too is the Divine within you, yet you seek it in the forest."</div>
-                
-                <div class="video-box"><iframe src="https://www.youtube.com/embed/BzaAv6x31Ro"></iframe></div>
-                <span class="video-label">Kabir Ke Dohe Explained</span>
-
-                <div class="video-grid">
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/l-cuj5IdVbA"></iframe></div><span class="video-label">The Untold Story of Kabir</span></div>
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/mDx0H7rIoNY"></iframe></div><span class="video-label">Kabir's Miracles</span></div>
-                </div>
-                <p>Explore his teachings and the "Untold Stories" narrated by <b>Sadhguru</b>, which delve into how Kabir transformed the perspectives of kings and commoners alike.</p>
-            </div>
-        </div>
-        <div class="scan-prompt"><button class="btn" onclick="alert('Scan July on your calendar!')">📷 SCAN JULY</button></div>
-        <div class="footer"><b>Bhakthi Heritage Project 2026</b></div>
-    </section>
-
-    <section id="jul" class="page">
-        <div class="container">
-            <header><h1>July</h1><p class="tagline">Sant Tukaram</p></header>
-            <div class="content-card">
-                <p>Sant Tukaram was the voice of the Varkari movement. He interpreted every worldly loss—the loss of his family, his wealth, and his status—as a gift from God that allowed him to focus entirely on Vitthala. He taught that 'eternal wealth' is found only in the Divine name. His Abhangs are short, rhythmic bursts of spiritual energy that remain the heartbeat of Maharashtra today.</p>
-                
-                <div class="video-box"><iframe src="https://www.youtube.com/embed/HoebKceFt5o"></iframe></div>
-                <span class="video-label">Sant Tukaram - Biography</span>
-
-                <div class="video-grid">
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/5RvQaVL9OXw"></iframe></div><span class="video-label">Sankalit Abhang</span></div>
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/zcpgaWKLzLU"></iframe></div><span class="video-label">The Deep Meaning of Abhang</span></div>
-                </div>
-                <p>Watch his biography and the deep-dive into his <i>Abhangs</i> to understand why he is considered the 'Ceaseless Song of Devotion'.</p>
-            </div>
-        </div>
-        <div class="scan-prompt"><button class="btn" onclick="alert('Scan August on your calendar!')">📷 SCAN AUGUST</button></div>
-        <div class="footer"><b>Bhakthi Heritage Project 2026</b></div>
-    </section>
-
-    <section id="aug" class="page">
-        <div class="container">
-            <header><h1>August</h1><p class="tagline">Sharada Maa</p></header>
-            <div class="content-card">
-                <p>Sri Sarada Devi, the Holy Mother, embodied the highest form of spiritual realization: universal motherhood. As the spiritual consort of Sri Ramakrishna, she lived a life of silent, powerful service. She taught that no one is a stranger and that the world is our own. Her grace was not in miracles, but in her absolute acceptance of all who came to her.</p>
-                
-                <div class="video-box"><iframe src="https://www.youtube.com/embed/WSnwWLfDAzE"></iframe></div>
-                <span class="video-label">Life & Teachings - Swami Sarvapriyananda</span>
-
-                <div class="video-grid">
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/Ji0uYtCsZDU"></iframe></div><span class="video-label">What is God's Grace?</span></div>
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/Ji0uYtCsZDU"></iframe></div><span class="video-label">The Holy Mother's Wisdom</span></div>
-                </div>
-                <p>Experience her presence through the teachings compiled by the <b>Vedanta Society</b> and a deep-dive by <b>Swami Sarvapriyananda</b>, which clarify how her simple life rang with the truth of the highest realization.</p>
-            </div>
-        </div>
-        <div class="scan-prompt"><button class="btn" onclick="alert('Scan September on your calendar!')">📷 SCAN SEPTEMBER</button></div>
-        <div class="footer"><b>Bhakthi Heritage Project 2026</b></div>
-    </section>
-
-    <section id="sep" class="page">
-        <div class="container">
-            <header><h1>September</h1><p class="tagline">Sant Mirabai</p></header>
-            <div class="content-card">
-                <p>Mirabai chose <i>Giridhar Gopal</i> over a palace and a crown. Her life was a dance of pure, ecstatic love that defied every social norm of her time. When she was served a cup of poison, she drank it as the Lord's prasadam, and it turned to nectar. She taught the world that for a true lover of God, there is no fear, only the eternal presence of the Beloved.</p>
-                
-                <div class="video-box"><iframe src="https://www.youtube.com/embed/hfSFGnoUOYg"></iframe></div>
-                <span class="video-label">Mirabai's Heart-Touching Story</span>
-
-                <div class="video-grid">
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/h2juKhu16rc"></iframe></div><span class="video-label">Top Meera Bhajans Jukebox</span></div>
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/rCPgJC0Mv4o"></iframe></div><span class="video-label">Mirabai's Eternal Love</span></div>
-                </div>
-                <p>Immerse yourself in her Relentless Devotion through <b>Swami Mukundananda's</b> narration and a jukebox of her most iconic bhajans that still resonate in every corner of India.</p>
-            </div>
-        </div>
-        <div class="scan-prompt"><button class="btn" onclick="alert('Scan October on your calendar!')">📷 SCAN OCTOBER</button></div>
-        <div class="footer"><b>Bhakthi Heritage Project 2026</b></div>
-    </section>
-
-    <section id="oct" class="page">
-        <div class="container">
-            <header><h1>October</h1><p class="tagline">Akka Mahadevi</p></header>
-            <div class="content-card">
-                <p>Akka Mahadevi was the rebel saint of the 12th century. She considered Lord Chennamallikarjuna (Shiva) as her only husband and stripped herself of worldly clothing and shame to find Him. Her <i>Vachanas</i> are raw, powerful poems of longing. She wandered the forests, proving that when the soul is naked before God, the world can no longer touch it.</p>
-                
-                <div class="video-box"><iframe src="https://www.youtube.com/embed/kv8ZsleTCCs"></iframe></div>
-                <span class="video-label">Akka Mahadevi: Fearless Devotee</span>
-
-                <div class="video-grid">
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/wd8sxe-SoiU"></iframe></div><span class="video-label">Odessey of Love</span></div>
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/wd8sxe-SoiU"></iframe></div><span class="video-label">Vachanas & Life History</span></div>
-                </div>
-                <p>Unravel her mystic life through the <b>Odessey of Love</b> cinematic story and hear the profound beauty of her Kannada <i>Vachanas</i> translated for the modern seeker.</p>
-            </div>
-        </div>
-        <div class="scan-prompt"><button class="btn" onclick="alert('Scan November on your calendar!')">📷 SCAN NOVEMBER</button></div>
-        <div class="footer"><b>Bhakthi Heritage Project 2026</b></div>
-    </section>
-
-    <section id="nov" class="page">
-        <div class="container">
-            <header><h1>November</h1><p class="tagline">Guru Nanak</p></header>
-            <div class="content-card">
-                <p>Guru Nanak Dev Ji traveled thousands of miles on foot to spread the message of <i>Ek Onkar</i>—One Universal Creator. He taught that the highest Bhakti is selfless service (Seva) and that God is found not in rituals, but in truthful living. He showed us that to serve humanity is to serve God, and that the light of the Divine is present in every human being without exception.</p>
-                
-                <div class="video-box"><iframe src="https://www.youtube.com/embed/Ur_8Kp2bPBg"></iframe></div>
-                <span class="video-label">Sri Guru Nanak Dev Ji - Gurbani</span>
-
-                <div class="video-grid">
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/phR1U_5xHLo"></iframe></div><span class="video-label">Sab Te Vadda Satgur Nanak</span></div>
-                    <div><div class="video-box"><iframe src="https://www.youtube.com/embed/phR1U_5xHLo"></iframe></div><span class="video-label">Shabad Kirtan Jukebox</span></div>
-                </div>
-                <p>Explore the light of Onkar through <b>Nonstop Gurbani Shabad Kirtan</b> and learn the "3 Important Lessons" of his life through the narrative videos above.</p>
-            </div>
-        </div>
-        <div class="scan-prompt"><button class="btn" onclick="alert('Scan December on your calendar!')">📷 SCAN DECEMBER</button></div>
-        <div class="footer"><b>Bhakthi Heritage Project 2026</b></div>
-    </section>
-
-    <section id="dec" class="page">
-        <div class="container" style="text-align: center;">
-            <header><h1>December</h1><p class="tagline">The Saint in YOU</p></header>
-            <div class="content-card">
-                <div class="you-circle">YOU</div>
-                <p>After a year of walking with the masters, we arrive at the most important destination: Your own heart. The saints we explored were not different beings from you; they were simply souls who realized the truth that you carry within you right now. As <b>Swami Vivekananda</b> powerfully stated:</p>
-                
-                <div class="quote">"Every soul is potentially divine. The goal is to manifest this divinity within by controlling nature, external and internal."</div>
-                
-                <p>The focus of Tulsidas, the sovereign claim of Andal, the blissful surrender of Tyagaraja—these are not just historical qualities; they are potentials inside you. You are the final piece of this heritage. Select any quality that touched you this year and begin your own sacred journey today. You are the living heritage of Bhakti.</p>
-                
-                <div style="background: white; border: 1px dashed var(--gold); padding: 30px; margin-top: 40px;">
-                    <h3 style="margin-top:0">Thank You</h3>
-                    <p>We thank you for walking this path with us throughout 2026. We would love to hear how this journey touched your life. Please share your feedback with us on Instagram!</p>
-                </div>
-            </div>
-        </div>
-        <div class="footer">
-            <b>Bhakthi Heritage Art Calendar Project 2026</b><br>
-            Sweta Sairam & Sai Mallesh<br>
-            <b>@swetcha_art</b> & <b>@Sai_prema_photography</b>
-        </div>
-    </section>
-
-    <script>
-        function showSection(id) {
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(p => p.classList.remove('active'));
-            const target = document.getElementById(id);
-            if (target) { target.classList.add('active'); window.scrollTo(0,0); }
-        }
-
-        window.onload = function() {
-            const params = new URLSearchParams(window.location.search);
-            const month = params.get('month');
-            if (month) { showSection(month.toLowerCase()); } 
-            else { showSection('intro'); }
-        };
-    </script>
-</body>
-</html>
+                    <div class="video-launcher" style="background-image: url('https://img.youtube.com/vi/4-BzjHYhc-M/0.jpg')" onclick="loadVideo(this, '4-BzjHYhc-M')"></div>
+                    <div class="video-launcher" style="background-image: url('
