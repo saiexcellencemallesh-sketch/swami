@@ -8,22 +8,28 @@
     <style>
         :root { --gold: #d4af37; --brown: #4e342e; --paper: #fdf5e6; --dark: #050505; }
         * { box-sizing: border-box; scroll-behavior: smooth; }
-        body, html { margin: 0; padding: 0; font-family: 'Lora', serif; transition: background 1.5s ease, color 1.5s ease; overflow-x: hidden; }
+        body, html { margin: 0; padding: 0; font-family: 'Lora', serif; transition: background 2s ease, color 2s ease; overflow-x: hidden; }
 
-        /* PULSE LOGO */
-        #project-logo {
-            position: fixed; top: 20px; left: 20px; z-index: 9999;
-            width: 105px; height: 105px; border-radius: 50%;
-            background: white; border: 3px double var(--gold);
+        /* CELESTIAL LOGO (MOON TO SUN TRANSITION) */
+        #celestial-logo {
+            position: fixed; z-index: 9999;
+            width: 115px; height: 115px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            text-align: center; font-family: 'Cinzel'; font-size: 8px;
-            line-height: 1.2; box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-            color: var(--brown); font-weight: bold; pointer-events: none;
-            animation: pulse 4s infinite;
+            text-align: center; font-family: 'Cinzel'; font-size: 8.5px;
+            line-height: 1.2; font-weight: bold; pointer-events: none;
+            transition: all 2.2s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 12px; color: var(--brown);
         }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); box-shadow: 0 0 35px rgba(212, 175, 55, 0.7); } }
 
-        /* SOUND TOGGLE */
+        /* Positions: Moon (Bottom Left) vs Sun (Top Left) */
+        .moon { background: #fff; box-shadow: 0 0 35px #fff; border: 2px solid #eee; left: 30px; top: 140px; }
+        .sun { background: radial-gradient(circle, #fff700 0%, #ffae00 100%); border: 3px double var(--gold); box-shadow: 0 0 55px #ffae00; left: 30px; top: 30px; }
+
+        /* THEMES */
+        .theme-dark { background: var(--dark); color: #fff; }
+        .theme-light { background: var(--paper); color: var(--brown); }
+        .theme-radiant { background: linear-gradient(135deg, #fff 0%, var(--gold) 100%); color: #000; }
+
         #audio-toggle {
             position: fixed; top: 25px; right: 25px; z-index: 9999;
             background: rgba(255,255,255,0.1); border: 1px solid var(--gold);
@@ -31,18 +37,11 @@
             font-family: 'Cinzel'; font-size: 0.7rem; cursor: pointer; backdrop-filter: blur(10px);
         }
 
-        /* TEXTURE OVERLAY */
         .texture { position: fixed; inset: 0; pointer-events: none; z-index: 500; opacity: 0.04; background-image: url('https://www.transparenttextures.com/patterns/parchment.png'); }
 
-        /* THEMES */
-        .theme-dark { background: var(--dark); color: #fff; }
-        .theme-light { background: var(--paper); color: var(--brown); }
-        .theme-radiant { background: linear-gradient(135deg, #fff 0%, var(--gold) 100%); color: #000; }
-
-        /* PAGES */
-        .page { display: none; min-height: 100vh; position: relative; padding: 140px 20px 60px; }
-        .page.active { display: block; animation: fadeIn 1.2s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .page { display: none; min-height: 100vh; position: relative; padding: 180px 20px 60px; z-index: 10; }
+        .page.active { display: block; animation: fadeIn 1.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
         .container { max-width: 850px; margin: 0 auto; }
         .card { 
@@ -52,306 +51,140 @@
         }
         .theme-light .card { background: rgba(255, 255, 255, 0.75); color: var(--brown); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
 
-        h1 { font-family: 'Cinzel', serif; font-size: clamp(2rem, 10vw, 3.5rem); margin: 0; color: var(--gold); text-align: center; }
+        h1 { font-family: 'Cinzel', serif; font-size: clamp(1.8rem, 8vw, 3rem); margin: 0; color: var(--gold); text-align: center; line-height: 1.2; }
         .tagline { font-family: 'Cinzel'; letter-spacing: 3px; display: block; text-align: center; font-size: 0.85rem; margin-top: 5px; color: var(--gold); font-weight: bold; }
 
         p { line-height: 2; font-size: 1.15rem; margin-bottom: 25px; text-align: justify; }
-        .hero-img { width: 100%; max-width: 550px; border: 8px solid white; outline: 1px solid var(--gold); margin: 0 auto 40px; display: block; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
-        
         .letter { font-style: italic; border-left: 4px solid var(--gold); padding: 20px 30px; margin: 40px 0; background: rgba(212, 175, 55, 0.08); border-radius: 0 10px 10px 0; font-size: 1.25rem; color: var(--gold); }
         .theme-light .letter { background: rgba(212, 175, 55, 0.05); color: var(--brown); }
-        
-        .quest { border: 2px dashed var(--gold); padding: 30px; margin-top: 60px; text-align: center; border-radius: 15px; background: rgba(255,255,255,0.1); font-weight: bold; }
-        .theme-light .quest { background: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
 
-        .vid-box {
-            position: relative; width: 100%; padding-bottom: 56.25%; background-color: #000;
-            background-size: cover; background-position: center; border: 1px solid var(--gold);
-            margin: 30px 0; cursor: pointer; transition: 0.4s;
-        }
-        .vid-box::before { content: '▶ TOUCH TO WITNESS'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.85); color: var(--gold); padding: 15px 30px; font-family: 'Cinzel'; border: 1px solid var(--gold); z-index: 2; }
+        .vid-box { position: relative; width: 100%; padding-bottom: 56.25%; background-color: #000; border: 1px solid var(--gold); margin: 30px 0; cursor: pointer; }
+        .vid-box::before { content: '▶ TOUCH TO WITNESS'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.85); color: var(--gold); padding: 15px 30px; font-family: 'Cinzel'; z-index: 2; border: 1px solid var(--gold); }
         .vid-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 
-        .btn { background: var(--gold); color: #000; padding: 20px 60px; font-family: 'Cinzel'; font-weight: bold; border-radius: 4px; cursor: pointer; border: none; font-size: 1.1rem; }
+        .btn { background: var(--gold); color: #000; padding: 20px 60px; font-family: 'Cinzel'; font-weight: bold; border-radius: 4px; cursor: pointer; border: none; font-size: 1.1rem; transition: 0.3s; }
+        .btn:hover { background: #fff; transform: translateY(-3px); }
+
         .footer { padding: 80px 20px; text-align: center; border-top: 1px solid var(--gold); font-size: 0.85rem; color: #888; background: #000; line-height: 2; }
-        
-        #cam-frame { width: 300px; height: 300px; border: 8px double var(--gold); border-radius: 50%; margin: 30px auto; overflow: hidden; display: none; box-shadow: 0 0 50px var(--gold); background: #000; }
-        #video-el { width: 100%; height: 100%; object-fit: cover; filter: sepia(0.5) contrast(1.1); }
+        .theme-light .footer { background: #fdf5e6; color: #777; }
+        .footer b { color: var(--gold); }
 
-        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .card { padding: 25px; } #project-logo { width: 85px; height: 85px; font-size: 7px; } }
+        #cam-frame { width: 300px; height: 300px; border: 8px double var(--gold); border-radius: 50%; margin: 30px auto; overflow: hidden; display: none; box-shadow: 0 0 50px var(--gold); background: #000; }
+        #video-el { width: 100%; height: 100%; object-fit: cover; }
+
+        @media (max-width: 600px) { .card { padding: 25px; } #celestial-logo { width: 95px; height: 95px; font-size: 7.5px; left: 15px; } .moon { top: 120px; } .sun { top: 20px; } }
     </style>
 </head>
 <body class="theme-dark">
 
     <div class="texture"></div>
-    <div id="project-logo">BHAKTHI<br>HERITAGE<br>ART CALENDAR<br>2026</div>
+    <div id="celestial-logo" class="moon">BHAKTHI<br>HERITAGE<br>ART CALENDAR<br>2026</div>
     <button id="audio-toggle" onclick="toggleAudio()">🔊 SOUNDSCAPE: OFF</button>
+
+    <script type="text/template" id="footer-content">
+        <b>Bhakthi Heritage Art Calendar 2026 Project</b><br>
+        A tribute to the heros and sheros of the Bhakthi Movement<br>
+        Design: <b>Sweta Sairam</b> | Content: <b>Sai Mallesh</b><br>
+        Follow: <b>@swetcha_art</b> & <b>@Sai_prema_photography</b>
+    </script>
 
     <section id="intro" class="page active">
         <div class="container" style="text-align: center;">
-            <header><h1>BHAKTHI</h1><span class="tagline">The Digital Sanctuary</span></header>
+            <header><h1>A New Beginning for 2026</h1></header>
             <div class="card">
-                <p>Welcome to a journey where time ends and devotion begins. This calendar is a bridge between the art on your wall and the eternal resonance of the soul. We begin in the sacred darkness of the night—where the inner light is most visible—and walk toward the sunrise of realization.</p>
-                <button class="btn" onclick="showSection('jan')">START THE PILGRIMAGE</button>
+                <p>Every great discovery can begin with a single, simple step. As we step into 2026, let’s choose to start this chapter with joy and a smile that comes from within.</p>
+                <p>We wish you a Happy New Year filled with light and peace. With a smile on your face and courage in your heart, you can begin the most beautiful discovery—the journey back to yourself.</p>
+                <button class="btn" onclick="showSection('jan')">STEP VIRTUALLY INTO BHAKTHI 2026</button>
             </div>
         </div>
-        <div class="footer">Design: <b>Sweta Sairam</b> | Content: <b>Sai Mallesh</b><br>Follow: <b>@swetcha_art</b> & <b>@Sai_prema_photography</b></div>
+        <div class="footer"></div>
     </section>
 
     <section id="jan" class="page">
         <div class="container">
-            <header><h1>January</h1><span class="tagline">The Essence of Longing</span></header>
+            <header><h1>The Essence of Devotion</h1><span class="tagline">January</span></header>
             <div class="card">
-                <p>Bhakti is the nectar of total surrender, a state where the seeker disappears into the infinite love of the Divine. We start in the dark silence, where the ego begins to quiet and the heart begins to speak.</p>
-                <div class="letter">"My Dear Seeker, don't be afraid of the dark. It is only in the night that you can see the stars—and only in your silence that you can hear Me."</div>
-                <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/n4p8E_5xHLo/0.jpg')" onclick="playV(this,'n4p8E_5xHLo')"></div>
-                <div class="grid">
-                    <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/fD_t7-SPlA8/0.jpg')" onclick="playV(this,'fD_t7-SPlA8')"></div>
-                    <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/zO99U-h8q_k/0.jpg')" onclick="playV(this,'zO99U-h8q_k')"></div>
+                <div class="letter" style="text-align: center; border: none; font-size: 1.5rem;">
+                    "Asatoma Sadgamaya... May your darkness turn into light."
                 </div>
-                <div class="quest"><h3>The January Quest</h3><p>Spend 5 minutes in total darkness each night this week. Listen only to your heartbeat.</p></div>
+                <p>Bhakti is more than just a religious practice; it is a profound emotional and spiritual experience of "surrender through love.".</p>
+                
+                <h3>1. Mathematics and Bhakthi!</h3>
+                <div class="vid-box" onclick="playV(this,'jfKXI_5wLGs')"></div>
+
+                <h3>2. The Bhakti Movement: A Social Revolution</h3>
+                <div class="vid-box" onclick="playV(this,'V2aDhYMspqQ')"></div>
+
+                <h3>3. The Three Pillars of Practice</h3>
+                <p>Traditionally, Bhakti is anchored by <b>Shravana</b>, <b>Kirtana</b>, and <b>Smarana</b>. Explore the story of <b>Saint Namdev</b>.</p>
+                <div class="vid-box" onclick="playV(this,'uW6pd1PSe3g')"></div>
+
+                <p><b>Modern Metaphor:</b> The viral song "Chor" by Justh.</p>
+                <div class="vid-box" onclick="playV(this,'Gg48H-lrZHo')"></div>
             </div>
         </div>
-        <div class="footer"><b>Bhakthi Heritage 2026</b></div>
+        <div class="footer"></div>
     </section>
 
     <section id="feb" class="page">
         <div class="container">
-            <header><h1>February</h1><span class="tagline">Sant Tulsidas</span></header>
+            <header><h1>Sant Tulsidas</h1><span class="tagline">February</span></header>
             <div class="card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRU6os3H0y_x_WXAWiI4-cpIemsFXqYceZ5Rg&s" class="hero-img">
-                <p>Tulsidas's life changed with a single spiritual shock. He proved that intense human passion can be the fuel for the most profound divine fire.</p>
-                <div class="letter">"I once crossed a flooded river for a body of flesh. Now, I cross the ocean of existence for Rama. Redirect your energy, and you will find your wings."</div>
-                <div class="grid">
-                    <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/4-BzjHYhc-M/0.jpg')" onclick="playV(this,'4-BzjHYhc-M')"></div>
-                    <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/OxzVwF6Anzw/0.jpg')" onclick="playV(this,'OxzVwF6Anzw')"></div>
-                </div>
-                <div class="quest"><h3>The Tulsidas Quest</h3><p>Identify one attachment today. This week, mentally offer it to the Divine to feel the internal shift.</p></div>
+                <p>Sant Tulsidas turned passion into divine fire. His <i>Ramcharitmanas</i> brought the sacred within reach of every heart.</p>
+                <div class="letter">"Redirect your energy, and you will find your wings."</div>
+                <div class="vid-box" onclick="playV(this,'4-BzjHYhc-M')"></div>
             </div>
         </div>
-        <div class="footer"><b>Bhakthi Heritage 2026</b></div>
+        <div class="footer"></div>
     </section>
 
-    <section id="mar" class="page">
-        <div class="container">
-            <header><h1>March</h1><span class="tagline">Goda Devi (Andal)</span></header>
-            <div class="card">
-                <p>Found under a Tulsi plant, Andal’s love was a sovereign claim. She refused to settle for any mortal love, choosing the Beloved who is eternal.</p>
-                <div class="letter">"You too are a child of the Divine—claim your crown. Why settle for a love that ends when you are built for the Infinite?"</div>
-                <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/4ESHzf8FSzU/0.jpg')" onclick="playV(this,'4ESHzf8FSzU')"></div>
-                <div class="grid">
-                    <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/wvvL746c_ww/0.jpg')" onclick="playV(this,'wvvL746c_ww')"></div>
-                    <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/WmL1852GDt8/0.jpg')" onclick="playV(this,'WmL1852GDt8')"></div>
-                </div>
-                <div class="quest"><h3>The Andal Quest</h3><p>Carry a fresh flower or Tulsi leaf today. Let it remind you that your entire life is a sacred offering.</p></div>
-            </div>
-        </div>
-        <div class="footer"><b>Bhakthi Heritage 2026</b></div>
-    </section>
-
-    <section id="apr" class="page">
-        <div class="container">
-            <header><h1>April</h1><span class="tagline">Saint Tyagaraja</span></header>
-            <div class="card">
-                <p>Tyagaraja showed us that devotion is raw. He moved from Ninda (blame) to Ananda (bliss) by speaking to Rama as his closest friend.</p>
-                <div class="letter">"Music is my soul's language. I argued with Rama because I loved Him. Do not hide your feelings from God—He is listening to your heart."</div>
-                <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/yhjND38WN54/0.jpg')" onclick="playV(this,'yhjND38WN54')"></div>
-                <div class="grid">
-                    <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/lzkUr1w7Mak/0.jpg')" onclick="playV(this,'lzkUr1w7Mak')"></div>
-                    <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/yhjND38WN54/0.jpg')" onclick="playV(this,'yhjND38WN54')"></div>
-                </div>
-                <div class="quest"><h3>The Tyagaraja Quest</h3><p>Listen to a devotional song today and sing along with full emotion. Speak your heart to the Divine.</p></div>
-            </div>
-        </div>
-        <div class="footer"><b>Bhakthi Heritage 2026</b></div>
-    </section>
-
-    <section id="may" class="page">
-        <div class="container">
-            <header><h1>May</h1><span class="tagline">Saint Sakkubai</span></header>
-            <div class="card">
-                <p>Sakkubai proved that devotion is not an escape, but a way to sanctify duty. If your heart is with Him, He will perform your work for you.</p>
-                <div class="letter">"I am in the sweeping of your floor and the cooking of your meals. If your heart is Mine, I am your Servant, doing your chores while you rest in Me."</div>
-                <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/ZckaWGoDwys/0.jpg')" onclick="playV(this,'ZckaWGoDwys')"></div>
-                <div class="grid">
-                    <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/7l6JJuMlwyc/0.jpg')" onclick="playV(this,'7l6JJuMlwyc')"></div>
-                    <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/nLp9S06K-2Y/0.jpg')" onclick="playV(this,'nLp9S06K-2Y')"></div>
-                </div>
-                <div class="quest"><h3>The Sakkubai Quest</h3><p>Pick one chore today. Do it as a direct offering of love. Experience work as worship.</p></div>
-            </div>
-        </div>
-        <div class="footer"><b>Bhakthi Heritage 2026</b></div>
-    </section>
-
-    <section id="jun" class="page">
-        <div class="container">
-            <header><h1>June</h1><span class="tagline">Saint Kabir</span></header>
-            <div class="card">
-                <p>The weaver of Truth. Kabir found God in the honesty of the heart, beyond ritual. He taught that the Divine is the thread binding us all.</p>
-                <div class="letter">"Do not look for Me in stone; look for Me in the truth you speak. I am as close to you as the heartbeat in your chest."</div>
-                <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/BzaAv6x31Ro/0.jpg')" onclick="playV(this,'BzaAv6x31Ro')"></div>
-                <div class="grid">
-                    <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/l-cuj5IdVbA/0.jpg')" onclick="playV(this,'l-cuj5IdVbA')"></div>
-                    <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/mDx0H7rIoNY/0.jpg')" onclick="playV(this,'mDx0H7rIoNY')"></div>
-                </div>
-                <div class="quest"><h3>The Kabir Quest</h3><p>Speak only the absolute truth for 12 hours today. Notice how it clarifies your mind.</p></div>
-            </div>
-        </div>
-        <div class="footer"><b>Bhakthi Heritage 2026</b></div>
-    </section>
-
-    <section id="jul" class="page">
-        <div class="container">
-            <header><h1>July</h1><span class="tagline">Sant Tukaram</span></header>
-            <div class="card">
-                <p>Tukaram Maharaj turned his worldly losses into "eternal wealth." He drowned his ledgers to find the rhythmic breathing of a soul at home.</p>
-                <div class="letter">"When the world left, Vitthala held me. Forget your calculations; just chant the Name until the chanter disappears."</div>
-                <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/HoebKceFt5o/0.jpg')" onclick="playV(this,'HoebKceFt5o')"></div>
-                <div class="grid">
-                    <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/5RvQaVL9OXw/0.jpg')" onclick="playV(this,'5RvQaVL9OXw')"></div>
-                    <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/zcpgaWKLzLU/0.jpg')" onclick="playV(this,'zcpgaWKLzLU')"></div>
-                </div>
-                <div class="quest"><h3>The Tukaram Quest</h3><p>Chant a Divine Name for 10 minutes straight today. Let it become your only thought.</p></div>
-            </div>
-        </div>
-        <div class="footer"><b>Bhakthi Heritage 2026</b></div>
-    </section>
-
-    <section id="aug" class="page">
-        <div class="container">
-            <header><h1>August</h1><span class="tagline">Sharada Maa</span></header>
-            <div class="card">
-                <p>The Holy Mother embodied silent, powerful grace. She taught that no one is a stranger and that the world belongs to everyone.</p>
-                <div class="letter">"I am your Mother. No one is a stranger. Do not look for faults in others; look into your own heart."</div>
-                <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/WSnwWLfDAzE/0.jpg')" onclick="playV(this,'WSnwWLfDAzE')"></div>
-                <div class="grid">
-                    <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/Ji0uYtCsZDU/0.jpg')" onclick="playV(this,'Ji0uYtCsZDU')"></div>
-                    <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/H_F75kC-v_4/0.jpg')" onclick="playV(this,'H_F75kC-v_4')"></div>
-                </div>
-                <div class="quest"><h3>The Sharada Quest</h3><p>Perform one anonymous act of service today. Expect nothing in return.</p></div>
-            </div>
-        </div>
-        <div class="footer"><b>Bhakthi Heritage 2026</b></div>
-    </section>
-
-    <section id="sep" class="page">
-        <div class="container">
-            <header><h1>September</h1><span class="tagline">Sant Meerabai</span></header>
-            <div class="card">
-                <p>Meerabai chose Krishna over a palace. Her fearless love turned poison into nectar and defied every mortal social law.</p>
-                <div class="letter">"They offered a crown, I chose a flute. When you love the Eternal, you lose all fear. Let your life be a dance of love."</div>
-                <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/hfSFGnoUOYg/0.jpg')" onclick="playV(this,'hfSFGnoUOYg')"></div>
-                <div class="grid">
-                    <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/h2juKhu16rc/0.jpg')" onclick="playV(this,'h2juKhu16rc')"></div>
-                    <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/rCPgJC0Mv4o/0.jpg')" onclick="playV(this,'rCPgJC0Mv4o')"></div>
-                </div>
-                <div class="quest"><h3>The Meera Quest</h3><p>Transform one negative thought into a prayer today. Turn your own poison into nectar.</p></div>
-            </div>
-        </div>
-        <div class="footer"><b>Bhakthi Heritage 2026</b></div>
-    </section>
-
-    <section id="oct" class="page">
-        <div class="container">
-            <header><h1>October</h1><span class="tagline">Akka Mahadevi</span></header>
-            <div class="card">
-                <p>The rebel saint. Akka stripped herself of labels and shame to find Shiva. She proved that the soul is naked before the Divine.</p>
-                <div class="letter">"Who are you behind your titles? I shed my clothes so my soul could breathe. Come, be naked before the Truth."</div>
-                <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/kv8ZsleTCCs/0.jpg')" onclick="playV(this,'kv8ZsleTCCs')"></div>
-                <div class="grid">
-                    <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/wd8sxe-SoiU/0.jpg')" onclick="playV(this,'wd8sxe-SoiU')"></div>
-                    <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/0fGvYv9hP_w/0.jpg')" onclick="playV(this,'0fGvYv9hP_w')"></div>
-                </div>
-                <div class="quest"><h3>The Akka Quest</h3><p>Spend 15 minutes in nature. Shed your mental labels and just exist as a soul.</p></div>
-            </div>
-        </div>
-        <div class="footer"><b>Bhakthi Heritage 2026</b></div>
-    </section>
-
-    <section id="nov" class="page">
-        <div class="container">
-            <header><h1>November</h1><span class="tagline">Guru Nanak</span></header>
-            <div class="card">
-                <p>The light of Onkar. Guru Nanak spread the message of oneness and taught that service to humanity is the highest prayer.</p>
-                <div class="letter">"Truth is high, but higher still is truthful living. Serve the Light in every face you see."</div>
-                <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/Ur_8Kp2bPBg/0.jpg')" onclick="playV(this,'Ur_8Kp2bPBg')"></div>
-                <div class="grid">
-                    <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/phR1U_5xHLo/0.jpg')" onclick="playV(this,'phR1U_5xHLo')"></div>
-                    <div class="vid-box" style="background-image:url('https://img.youtube.com/vi/7j5h2m-0k_k/0.jpg')" onclick="playV(this,'7j5h2m-0k_k')"></div>
-                </div>
-                <div class="quest"><h3>The Nanak Quest</h3><p>Perform one act of Seva (service) today without expecting any thanks.</p></div>
-            </div>
-        </div>
-        <div class="footer"><b>Bhakthi Heritage 2026</b></div>
-    </section>
+    <section id="mar" class="page"><div class="container"><header><h1>Goda Devi (Andal)</h1></header><div class="card"><div class="vid-box" onclick="playV(this,'4ESHzf8FSzU')"></div></div></div><div class="footer"></div></section>
+    <section id="apr" class="page"><div class="container"><header><h1>Saint Tyagaraja</h1></header><div class="card"><div class="vid-box" onclick="playV(this,'yhjND38WN54')"></div></div></div><div class="footer"></div></section>
+    <section id="may" class="page"><div class="container"><header><h1>Saint Sakkubai</h1></header><div class="card"><div class="vid-box" onclick="playV(this,'ZckaWGoDwys')"></div></div></div><div class="footer"></div></section>
+    <section id="jun" class="page"><div class="container"><header><h1>Saint Kabir</h1></header><div class="card"><div class="vid-box" onclick="playV(this,'BzaAv6x31Ro')"></div></div></div><div class="footer"></div></section>
+    <section id="jul" class="page"><div class="container"><header><h1>Sant Tukaram</h1></header><div class="card"><div class="vid-box" onclick="playV(this,'HoebKceFt5o')"></div></div></div><div class="footer"></div></section>
+    <section id="aug" class="page"><div class="container"><header><h1>Sharada Maa</h1></header><div class="card"><div class="vid-box" onclick="playV(this,'WSnwWLfDAzE')"></div></div></div><div class="footer"></div></section>
+    <section id="sep" class="page"><div class="container"><header><h1>Sant Meerabai</h1></header><div class="card"><div class="vid-box" onclick="playV(this,'hfSFGnoUOYg')"></div></div></div><div class="footer"></div></section>
+    <section id="oct" class="page"><div class="container"><header><h1>Akka Mahadevi</h1></header><div class="card"><div class="vid-box" onclick="playV(this,'kv8ZsleTCCs')"></div></div></div><div class="footer"></div></section>
+    <section id="nov" class="page"><div class="container"><header><h1>Guru Nanak</h1></header><div class="card"><div class="vid-box" onclick="playV(this,'Ur_8Kp2bPBg')"></div></div></div><div class="footer"></div></section>
 
     <section id="dec" class="page theme-radiant">
         <div class="container" style="text-align: center;">
-            <header><h1>December</h1><span class="tagline">The Final Reveal</span></header>
+            <header><h1>The Final Reveal</h1><span class="tagline">December</span></header>
             <div class="card">
                 <div id="cam-frame"><video id="video-el" autoplay playsinline></video></div>
                 <div id="mirror-btn-wrap"><button class="btn" onclick="openMirror()">REVEAL THE 13TH SAINT</button></div>
-                
-                <p style="margin-top:40px;">The light of the masters is the heartbeat within you. As <b>Swami Vivekananda</b> said:</p>
-                <div class="letter">"Every soul is potentially divine. The goal is to manifest this divinity within."</div>
-                <p>You are the living heritage. Thank you for walking this path of light with us.</p>
-                <div class="quest"><h3>Feedback & Gratitude</h3><p>Share your journey with <b>@swetcha_art</b> on Instagram!</p></div>
+                <p>As <b>Swami Vivekananda</b> said: "Every soul is potentially divine."</p>
             </div>
         </div>
-        <div class="footer"><b>Bhakthi Heritage Project 2026</b><br>Sweta Sairam & Sai Mallesh</div>
+        <div class="footer"></div>
     </section>
 
     <script>
         let isAudioOn = false;
         const mainAudio = new Audio();
         mainAudio.loop = true;
-
-        const audioData = { 
-            intro: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_821815d654.mp3', // Om
-            jan: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_821815d654.mp3',
-            feb: 'https://cdn.pixabay.com/download/audio/2022/03/10/audio_5b82260654.mp3', // Bell
-            mar: 'https://cdn.pixabay.com/download/audio/2022/03/24/audio_34988e404b.mp3', // Birds
-            apr: 'https://cdn.pixabay.com/download/audio/2022/02/22/audio_123456789.mp3',
-            may: 'https://cdn.pixabay.com/download/audio/2022/03/10/audio_5b82260654.mp3',
-            jun: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a1b60654.mp3',
-            jul: 'https://cdn.pixabay.com/download/audio/2022/02/22/audio_123456789.mp3',
-            aug: 'https://cdn.pixabay.com/download/audio/2022/03/10/audio_5b82260654.mp3',
-            sep: 'https://cdn.pixabay.com/download/audio/2021/08/09/audio_821815d654.mp3',
-            oct: 'https://cdn.pixabay.com/download/audio/2022/03/24/audio_34988e404b.mp3',
-            nov: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_821815d654.mp3'
-        };
+        const audioData = { intro: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_821815d654.mp3' };
 
         function toggleAudio() {
             isAudioOn = !isAudioOn;
             const btn = document.getElementById('audio-toggle');
-            if (isAudioOn) { 
-                btn.innerHTML = "🔊 SOUNDSCAPE: ON"; 
-                mainAudio.play();
-            } else { 
-                btn.innerHTML = "🔊 SOUNDSCAPE: OFF"; 
-                mainAudio.pause();
-            }
+            if (isAudioOn) { btn.innerHTML = "🔊 SOUNDSCAPE: ON"; mainAudio.play(); } 
+            else { btn.innerHTML = "🔊 SOUNDSCAPE: OFF"; mainAudio.pause(); }
         }
 
         function showSection(id) {
-            const theme = (id === 'intro' || id === 'jan') ? 'theme-dark' : (id === 'dec' ? 'theme-radiant' : 'theme-light');
+            const theme = (id === 'intro') ? 'theme-dark' : (id === 'dec' ? 'theme-radiant' : 'theme-light');
             document.body.className = theme;
+            const logo = document.getElementById('celestial-logo');
+            logo.className = (id === 'intro') ? 'moon' : 'sun';
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             const target = document.getElementById(id);
-            if (target) { 
-                target.classList.add('active'); 
-                window.scrollTo(0,0);
-                if (audioData[id]) {
-                    mainAudio.src = audioData[id];
-                    if (isAudioOn) mainAudio.play();
-                }
-            }
+            if (target) { target.classList.add('active'); window.scrollTo(0,0); }
         }
 
         function playV(div, id) {
-            div.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-            div.style.backgroundImage = "none";
+            div.innerHTML = `<iframe width="100%" height="315" src="https://www.youtube.com/embed/${id}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         }
 
         async function openMirror() {
@@ -360,10 +193,12 @@
                 document.getElementById('video-el').srcObject = stream;
                 document.getElementById('cam-frame').style.display = "block";
                 document.getElementById('mirror-btn-wrap').style.display = "none";
-            } catch (err) { alert("Enable camera to see your divine reflection!"); }
+            } catch (err) { alert("Enable camera!"); }
         }
 
         window.onload = function() {
+            const footerHtml = document.getElementById('footer-content').innerHTML;
+            document.querySelectorAll('.footer').forEach(f => f.innerHTML = footerHtml);
             const p = new URLSearchParams(window.location.search).get('month');
             showSection(p ? p.toLowerCase() : 'intro');
         };
