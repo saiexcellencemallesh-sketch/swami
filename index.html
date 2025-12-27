@@ -232,3 +232,301 @@
 </body>
 </html>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>February: Tulsidas | Bhakti Heritage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color-dark: #0c0f14; 
+            --text-color-dark: #eaddca;
+            --accent-color-dark: #d4af37;
+            --bg-color-light-1: #fdfbf7;
+            --bg-color-light-2: #f0eada;
+            --text-color-light: #2c1e11;
+            --accent-color-light: #8b5e3c;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-color-dark); color: var(--text-color-dark); font-family: 'Merriweather', serif; overflow-x: hidden; }
+
+        /* --- GATEWAY SCREEN --- */
+        #gateway-screen {
+            min-height: 100vh; width: 100%; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center;
+            padding: 40px; background: var(--bg-color-dark);
+            transition: opacity 1s ease; z-index: 10001; position: relative;
+        }
+
+        .gateway-card {
+            max-width: 900px; width: 100%; display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 40px;
+        }
+
+        @media (min-width: 768px) { .gateway-card { grid-template-columns: 1fr 1.5fr; align-items: stretch; } }
+
+        .tile {
+            padding: 40px; border-radius: 15px; cursor: pointer; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex; flex-direction: column; justify-content: center; border: 1px solid rgba(212, 175, 55, 0.2);
+            backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.03);
+        }
+
+        .tile:hover { transform: translateY(-10px); border-color: var(--accent-color-dark); background: rgba(212, 175, 55, 0.05); }
+
+        .tile.highlight { 
+            border: 2px solid var(--accent-color-dark); 
+            background: linear-gradient(145deg, rgba(212, 175, 55, 0.1), transparent);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .tile h3 { font-family: 'Cinzel Decorative'; color: var(--accent-color-dark); margin-bottom: 15px; }
+        .tile p { font-size: 0.95rem; line-height: 1.6; opacity: 0.8; }
+
+        /* --- SACRED MEDIA PATH --- */
+        #media-library { display: none; padding: 100px 40px; background: #000; min-height: 100vh; }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 40px auto; }
+        .vid-box { border: 1px solid var(--accent-color-dark); position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+        .vid-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .back-btn { background: none; border: 1px solid var(--accent-color-dark); color: var(--accent-color-dark); padding: 10px 20px; font-family: 'Cinzel Decorative'; cursor: pointer; margin-bottom: 40px; }
+        .media-intro { font-size: 1.1rem; line-height: 1.8; color: var(--text-color-dark); margin-bottom: 30px; border-left: 3px solid var(--accent-color-dark); padding-left: 20px; max-width: 850px; }
+
+        /* --- FULL IMMERSIVE ENGINE --- */
+        #immersive-journey { display: none; }
+        .main-container { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        section { height: 100vh; width: 100%; scroll-snap-align: start; display: flex; justify-content: center; align-items: center; padding: 40px; position: relative; transition: background 2s ease; }
+        
+        section.light-theme { background: radial-gradient(circle at center, var(--bg-color-light-1) 0%, var(--bg-color-light-2) 100%); }
+        section.light-theme h2 { color: var(--accent-color-light); }
+        section.light-theme p { color: var(--text-color-light); }
+        section.light-theme .highlight { color: #800000; font-weight: bold; border-bottom: 1px solid #800000; }
+
+        .content-wrapper { max-width: 1100px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 3rem; z-index: 2; }
+        @media (min-width: 900px) { .content-wrapper.split { flex-direction: row; gap: 6rem; } .content-wrapper.split.reverse { flex-direction: row-reverse; } .text-block, .img-block { flex: 1; text-align: left;} }
+        
+        .img-block img { max-width: 100%; max-height: 55vh; border-radius: 12px; box-shadow: 0 30px 60px rgba(0,0,0,0.8); border: 1px solid rgba(212, 175, 55, 0.3); transition: 1s; }
+        section.light-theme .img-block img { border: 2px solid var(--accent-color-light); }
+
+        #rain-container { position: fixed; inset: 0; pointer-events: none; z-index: 10; opacity: 0; transition: opacity 2s ease; }
+        .drop { position: absolute; background: rgba(255,255,255,0.25); width: 2px; height: 30px; animation: fall linear infinite; }
+        @keyframes fall { to { transform: translateY(100vh); } }
+        
+        #lightning-flash { position: fixed; inset: 0; background: #fff; opacity: 0; z-index: 9999; pointer-events: none; }
+        @keyframes flashEffect { 0%, 100% { opacity: 0; } 10%, 25% { opacity: 0.7; } 15%, 30% { opacity: 0; } }
+
+        .urge-card { background: rgba(212, 175, 55, 0.08); border-top: 4px solid var(--accent-color-dark); padding: 40px; border-radius: 15px; text-align: center; max-width: 800px; }
+        section.light-theme .urge-card { background: rgba(139, 94, 60, 0.05); border-top: 4px solid var(--accent-color-light); }
+
+        .anim { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
+        section.active .anim { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+<div id="gateway-screen">
+    <h1 style="font-family: 'Cinzel Decorative'; font-size: 3rem; margin-bottom: 10px;">February 2026</h1>
+    <p style="opacity: 0.7; letter-spacing: 3px;">THE LEGEND OF SANT TULSIDAS</p>
+    
+    <div class="gateway-card">
+        <div class="tile" onclick="openPath('media')">
+            <h3>Sacred Media</h3>
+            <p>Curated playlists covering the profound life and immortal compositions of Tulsidas Ji.</p>
+            <span style="color:var(--accent-color-dark); margin-top: 20px; font-size: 0.8rem; font-weight: bold;">VIEW LIBRARY →</span>
+        </div>
+
+        <div class="tile highlight" onclick="openPath('journey')">
+            <span style="font-size: 0.7rem; color: var(--accent-color-dark); font-weight: bold; letter-spacing: 2px;">MOST IMMERSIVE</span>
+            <h3 style="font-size: 1.8rem; margin-top: 10px;">The Evolution</h3>
+            <p>A full immersive experience. Put on your headphones and witness the redirection of a soul through severe storms.</p>
+            <span style="background:var(--accent-color-dark); color:black; padding: 10px 20px; margin-top: 20px; font-weight: bold; font-size: 0.8rem; border-radius: 4px;">BEGIN JOURNEY</span>
+        </div>
+    </div>
+</div>
+
+<div id="media-library">
+    <div class="content-wrapper" style="align-items: flex-start;">
+        <button class="back-btn" onclick="location.reload()">← BACK TO GATEWAY</button>
+        <h2 style="font-family: 'Cinzel Decorative'; color: var(--accent-color-dark);">Sacred Sounds</h2>
+        
+        <p class="media-intro">
+            Welcome to the digital sanctuary of Sant Tulsidas Ji. Below, we have curated a collection of cinematic stories and soul-stirring compositions that define his legacy. The first section explores his remarkable life-story, followed by the timeless verses of his compositions that continue to guide millions.
+        </p>
+
+        <h3 style="color:var(--accent-color-dark); margin: 30px 0 10px;">The Story of Tulsidas Ji</h3>
+        <div class="video-grid">
+            <div class="vid-box"><iframe src="https://www.youtube.com/embed/4-BzjHYhc-M?si=SPN7PF72_oGg-IrN"></iframe></div>
+            <div class="vid-box"><iframe src="https://www.youtube.com/embed/OxzVwF6Anzw?si=7VHQzOjEA-Fqw6nL"></iframe></div>
+        </div>
+
+        <h3 style="color:var(--accent-color-dark); margin: 50px 0 10px;">Compositions of Tulsidas Ji</h3>
+        <div class="video-grid">
+            <div class="vid-box"><iframe src="https://www.youtube.com/embed/z56DlPcG8k8?si=8bpDvTYKbFbQrXg6"></iframe></div>
+            <div class="vid-box"><iframe src="https://www.youtube.com/embed/ZFb-W1PAcnI?si=JI9gMX4oHI-J8A0W"></iframe></div>
+            <div class="vid-box"><iframe src="https://www.youtube.com/embed/R3NxAR60jlo?si=vl2Yr8NxHiERxKbU"></iframe></div>
+        </div>
+    </div>
+</div>
+
+<div id="immersive-journey">
+    <div id="lightning-flash"></div>
+    <div id="rain-container"></div>
+    <div class="main-container">
+        
+        <section id="hero">
+            <div class="content-wrapper anim">
+                <h1 style="font-size: 3.5rem;">Tulsidas: The Evolution</h1>
+                <p style="text-align: center; max-width: 750px;">A mortal passion transformed into a divine flame.</p>
+            </div>
+        </section>
+
+        <section id="storm-start">
+            <div class="content-wrapper split">
+                <div class="text-block anim">
+                    <h2>The Severe Storm</h2>
+                    <p>Unable to stay away from Ratnavali, Tulsidas faced a thunderstorm so fierce the world seemed to end. The rain blinded the eyes, but his desire blinded his soul.</p>
+                </div>
+                <div class="img-block anim"><img src="https://github.com/saiexcellencemallesh-sketch/swami/blob/main/The%20Night%20of%20Awakening.png?raw=true" alt="Storm"></div>
+            </div>
+        </section>
+
+        <section id="corpse-section">
+            <div class="content-wrapper split reverse">
+                 <div class="text-block anim">
+                    <h2>Blinded by Attachment</h2>
+                    <p>He reached the river Yamuna, flooded and dangerous. In his desperation to cross, he grabbed what he thought was a log. It was, in grim reality, a <span class="highlight">human corpse</span>.</p>
+                    <p>He was literally clutching the dead in pursuit of temporary pleasure, unaware that true life awaited in the Divine.</p>
+                </div>
+                <div class="img-block anim"><img src="https://github.com/saiexcellencemallesh-sketch/swami/blob/main/Rivee%20Sceen.png?raw=true" alt="Corpse"></div>
+            </div>
+        </section>
+
+        <section id="wake-up">
+            <div class="content-wrapper split">
+                 <div class="text-block anim">
+                    <h2>The Mirror of Truth</h2>
+                    <p>After climbing a <span class="highlight">venomous snake</span> to reach her, his wife delivered the rebuke that changed history: "If you had but half this devotion for Lord Rama, you would have crossed the ocean of existence forever".</p>
+                </div>
+                <div class="img-block anim"><img src="https://github.com/saiexcellencemallesh-sketch/swami/blob/main/Tulsidas%20Wife.png?raw=true" alt="Wake up"></div>
+            </div>
+        </section>
+
+        <section class="light-theme" id="the-shift">
+            <div class="content-wrapper split">
+                <div class="text-block anim">
+                    <h2>The Shift</h2>
+                    <p>The illusion collapsed. The man who risked everything to get in, now walked away into the night—stepping into the light of Truth.</p>
+                </div>
+                <div class="img-block anim"><img src="https://github.com/saiexcellencemallesh-sketch/swami/blob/main/Journey%20afterward%20-1.png?raw=true" alt="Shift"></div>
+            </div>
+        </section>
+
+        <section class="light-theme" id="legend-akbar">
+            <div class="content-wrapper split reverse">
+                <div class="text-block anim">
+                    <h2>The Emperor & The Miracle</h2>
+                    <p>While imprisoned by Akbar for refusing to perform a miracle, Tulsidas composed the **Hanuman Chalisa**. Legend says an army of monkeys suddenly attacked the palace, forcing his release with honor.</p>
+                </div>
+                <div class="img-block anim"><img src="https://github.com/saiexcellencemallesh-sketch/swami/blob/main/Journey%20afterwards%202.png?raw=true" alt="Legend"></div>
+            </div>
+        </section>
+
+        <section class="light-theme" id="tulsidas-urge">
+            <div class="content-wrapper anim">
+                <div class="urge-card">
+                    <h2>The Tulsidas "Urge"</h2>
+                    <p>We all have the "Tulsidas Urge"—that intense energy we use to chase temporary things. The story isn't about killing desire, but **redirecting it**.</p>
+                    <p>If you can chase a "corpse" with that much focus, imagine what you can achieve if you chase the "Truth".</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="light-theme" id="observe-yourself">
+            <div class="content-wrapper anim" style="text-align: center;">
+                <h2 style="font-size: 2.2rem; color: #800000;">Observe yourself</h2>
+                <p style="font-size: 1.4rem; font-style: italic; max-width: 800px; color: var(--text-color-light);">
+                    How are you satiating your burning desire? Are you using your energy for the short term gain or are you using it to love, embrace, to grow in your real self and achieve the purpose for which you were born?
+                </p>
+                <button class="back-btn" style="margin-top: 60px; border-color: var(--accent-color-light); color: var(--accent-color-light);" onclick="location.reload()">REVISIT GATEWAY</button>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script>
+    const rainAudio = new Audio('https://www.soundjay.com/nature/rain-01.mp3');
+    const thunderAudio = new Audio('https://www.soundjay.com/nature/thunder-01.mp3');
+    const sitarAudio = new Audio('https://www.orangefreesounds.com/wp-content/uploads/2014/10/Sitar-music.mp3');
+    
+    rainAudio.volume = 0.05; // 5% volume
+    thunderAudio.volume = 0.05; // 5% volume
+    sitarAudio.volume = 0.3;
+    rainAudio.loop = true;
+    sitarAudio.loop = true;
+
+    let currentPath = '';
+
+    function openPath(path) {
+        currentPath = path;
+        document.getElementById('gateway-screen').style.opacity = '0';
+        setTimeout(() => {
+            document.getElementById('gateway-screen').style.display = 'none';
+            if(path === 'media') {
+                document.getElementById('media-library').style.display = 'block';
+            } else {
+                document.getElementById('immersive-journey').style.display = 'block';
+            }
+        }, 1000);
+    }
+
+    function triggerLightning() {
+        const flash = document.getElementById('lightning-flash');
+        flash.style.animation = "flashEffect 0.6s ease-out";
+        thunderAudio.play();
+        setTimeout(() => flash.style.animation = "", 700);
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && currentPath === 'journey') {
+                entry.target.classList.add('active');
+                if (['storm-start', 'corpse-section'].includes(entry.target.id)) {
+                    document.getElementById('rain-container').style.opacity = "1";
+                    rainAudio.play();
+                } 
+                if (entry.target.id === 'wake-up') {
+                    triggerLightning();
+                    setTimeout(() => {
+                        document.getElementById('rain-container').style.opacity = "0";
+                        rainAudio.pause();
+                    }, 2500);
+                }
+                if (entry.target.id === 'the-shift') {
+                    sitarAudio.play();
+                }
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('section').forEach(s => observer.observe(s));
+    
+    const rainContainer = document.getElementById('rain-container');
+    for(let i=0; i<100; i++) {
+        const drop = document.createElement('div');
+        drop.className = 'drop';
+        drop.style.left = Math.random() * 100 + 'vw';
+        drop.style.animationDuration = (Math.random() * 0.4 + 0.3) + 's';
+        rainContainer.appendChild(drop);
+    }
+
+    // URL PARAM LOGIC
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const month = urlParams.get('month');
+        if (month === 'feb') {
+            // Logic to handle if this is part of a larger SPA or direct page load
+        }
+    };
+</script>
+</body>
+</html>
