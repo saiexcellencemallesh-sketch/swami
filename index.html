@@ -75,6 +75,14 @@
         .drop { position: absolute; background: rgba(255,255,255,0.2); width: 2px; height: 35px; animation: fall linear infinite; }
         @keyframes fall { to { transform: translateY(100vh); } }
         #lightning-flash { position: fixed; inset: 0; background: #fff; opacity: 0; z-index: 9999; pointer-events: none; }
+
+        /* TRIBUTE FOOTER */
+        .tribute-section { padding: 100px 40px; text-align: center; border-top: 1px solid var(--gold); background: #000; color: #fff; }
+        .tribute-credits { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; border-top: 1px solid #333; padding-top: 40px; }
+        .credit-item { font-family: 'Cinzel'; font-size: 0.9rem; letter-spacing: 1px; }
+        .credit-item b { color: var(--gold); display: block; font-size: 1.1rem; margin-top: 5px; }
+
+        .move-ahead-msg { color: var(--gold); font-family: 'Cinzel'; font-size: 1.1rem; margin: 40px 0; display: none; line-height: 1.8; border: 2px dashed var(--gold); padding: 30px; background: rgba(212, 175, 55, 0.05); }
     </style>
 </head>
 <body class="theme-dark">
@@ -122,7 +130,7 @@
 
                 <div class="card" style="background: rgba(212, 175, 55, 0.05);">
                     <h2>Saint Namdev</h2>
-                    <p>His journey shows that pure love transforms a simple ritual into a living friendship with the Divine. He saw God not in stone, but in the vibration of love itself.</p>
+                    <p>His journey shows that pure love transforms a simple ritual into a living friendship with the Divine. He saw God not in stone, but in the vibration of love itself. To see these practices come alive, watch the story of Saint Namdev below.</p>
                     <div class="vid-box" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/uW6pd1PSe3g?autoplay=1\' allow=\'autoplay\' allowfullscreen></iframe>'"></div>
                 </div>
 
@@ -141,10 +149,18 @@
                 <div class="vid-box" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/Gg48H-lrZHo?autoplay=1\' allow=\'autoplay\' allowfullscreen></iframe>'"></div>
 
                 <div style="text-align: center; margin-top: 60px;">
-                    <button class="btn" onclick="showSection('feb-gateway')">MOVE AHEAD</button>
+                    <div id="msg-jan" class="move-ahead-msg">The next saint is Goswami Tulsidas ji. <br><br>Scan the QR code in the calendar to experience the depths of the Ramcharitmanas.</div>
+                    <button id="btn-jan" class="btn" onclick="revealMsgOnly('msg-jan', this)">MOVE AHEAD</button>
                 </div>
             </div>
         </div>
+        <footer class="tribute-section">
+            <h2>Bhakthi Heritage ART Project 2026</h2>
+            <div class="tribute-credits">
+                <div class="credit-item">Art By<b>Sweta Sairam - @swetch_art</b></div>
+                <div class="credit-item">Content Curated By<b>Sai Mallesh - @Sai_prema_photography</b></div>
+            </div>
+        </footer>
     </section>
 
     <section id="feb-gateway" class="page-node">
@@ -164,6 +180,13 @@
                 </div>
             </div>
         </div>
+        <footer class="tribute-section">
+            <h2>Bhakthi Heritage ART Project 2026</h2>
+            <div class="tribute-credits">
+                <div class="credit-item">Art By<b>Sweta Sairam - @swetch_art</b></div>
+                <div class="credit-item">Content Curated By<b>Sai Mallesh - @Sai_prema_photography</b></div>
+            </div>
+        </footer>
     </section>
 
     <section id="feb-media" class="page-node">
@@ -185,11 +208,20 @@
                 <div class="vid-box" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/R3NxAR60jlo?autoplay=1\' allow=\'autoplay\' allowfullscreen></iframe>'"></div>
             </div>
         </div>
+        <footer class="tribute-section">
+            <h2>Bhakthi Heritage ART Project 2026</h2>
+            <div class="tribute-credits">
+                <div class="credit-item">Art By<b>Sweta Sairam - @swetch_art</b></div>
+                <div class="credit-item">Content Curated By<b>Sai Mallesh - @Sai_prema_photography</b></div>
+            </div>
+        </footer>
     </section>
 
     <section id="feb-journey" class="page-node" style="padding:0;">
         <div id="immersive-scroll-container" style="height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory;">
-            
+            <div style="position: fixed; top: 20px; right: 20px; z-index: 10001;">
+                <button class="btn" style="padding: 10px 20px;" onclick="showSection('feb-gateway')">← EXIT JOURNEY</button>
+            </div>
             <section class="immersive-sec">
                 <div class="card" style="text-align: center;">
                     <h1 style="font-size: 4rem; font-family: 'Cinzel Decorative';">Tulsidas: The Evolution</h1>
@@ -256,13 +288,25 @@
                         How are you satiating your burning desire? Are you using your energy for short-term gain, or are you using it to love, embrace, grow in your real self, and achieve the purpose for which you were born?
                     </p>
                     <div class="bh-footer">BHAKTI HERITAGE 2026</div>
-                    <button class="btn" style="margin-top: 60px;" onclick="location.reload()">REVISIT CALENDAR</button>
+                    
+                    <div style="margin-top: 60px;">
+                        <div id="msg-feb" class="move-ahead-msg">The next saint is Andal Amma. She found divine love in the fragrant gardens of Srivilliputhur. <br><br>Scan the QR code in the calendar to experience her sacred Tiruppavai.</div>
+                        <button id="btn-feb" class="btn" onclick="revealMsgOnly('msg-feb', this)">SCAN THE NEXT SAINT</button>
+                    </div>
                 </div>
             </section>
         </div>
     </section>
 
     <script>
+        // SOUND ENGINE - CONFIGURED TO 5% VOLUME
+        const rainSound = new Audio('https://www.soundjay.com/nature/rain-01.mp3');
+        const thunderSound = new Audio('https://www.soundjay.com/nature/thunder-01.mp3');
+        
+        rainSound.volume = 0.05; 
+        thunderSound.volume = 0.05;
+        rainSound.loop = true;
+
         function showSection(id) {
             document.querySelectorAll('.page-node').forEach(p => p.classList.remove('active'));
             const node = document.getElementById(id);
@@ -272,7 +316,8 @@
             if(id === 'jan') {
                 document.body.className = 'theme-light';
                 logo.className = 'sun-radiant';
-            } else if (id === 'feb-journey') {
+                rainSound.pause();
+            } else if (id === 'feb-journey' || id === 'feb-gateway' || id === 'feb-media') {
                 document.body.className = 'theme-dark';
                 logo.className = 'moon-cloudy';
             } else {
@@ -282,7 +327,23 @@
             window.scrollTo(0,0);
         }
 
+        // Logic to show message and STOP
+        function revealMsgOnly(msgId, btn) {
+            document.getElementById(msgId).style.display = 'block';
+            btn.style.display = 'none';
+            document.getElementById(msgId).scrollIntoView({ behavior: 'smooth' });
+        }
+
         window.addEventListener('load', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const month = urlParams.get('month');
+            
+            if (month === 'feb') {
+                showSection('feb-gateway');
+            } else if (month === 'jan') {
+                showSection('jan');
+            }
+
             setTimeout(() => {
                 document.getElementById('loader').style.opacity = '0';
                 setTimeout(() => document.getElementById('loader').style.display = 'none', 1500);
@@ -307,14 +368,18 @@
                     if (['storm-start', 'corpse-sec'].includes(entry.target.id)) {
                         rainCont.style.opacity = "1";
                         logo.className = 'moon-cloudy';
+                        rainSound.play();
                     } else if (entry.target.id === 'the-shift') {
                         logo.className = 'sun-radiant';
                         rainCont.style.opacity = "0";
+                        rainSound.pause();
                     } else if (entry.target.id === 'wake-sec') {
                         triggerLightning();
                         rainCont.style.opacity = "0";
+                        rainSound.pause();
                     } else if (entry.target.closest('.theme-light')) {
                         logo.className = 'sun-radiant';
+                        rainSound.pause();
                     }
                 }
             });
@@ -325,6 +390,7 @@
         function triggerLightning() {
             const flash = document.getElementById('lightning-flash');
             flash.style.animation = "flashEffect 0.6s ease-out";
+            thunderSound.play();
             setTimeout(() => flash.style.animation = "", 700);
         }
     </script>
