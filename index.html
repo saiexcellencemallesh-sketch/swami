@@ -396,3 +396,29 @@
     </script>
 </body>
 </html>
+
+// Extend the URL month logic to Dec
+window.addEventListener('load', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const month = urlParams.get('month');
+    const monthMap = { 
+        'jan':'jan', 'feb':'feb-gateway', 'mar':'mar', 'apr':'apr', 
+        'may':'may', 'jun':'jun', 'jul':'jul', 'aug':'aug', 
+        'sep':'sep', 'oct':'oct', 'nov':'nov', 'dec':'dec' 
+    };
+    if (monthMap[month]) showSection(monthMap[month]);
+});
+
+// Camera logic for December
+async function startCameraMirror() {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const video = document.getElementById('soul-mirror');
+        video.srcObject = stream;
+        document.getElementById('dec-entry').style.display = 'none';
+        document.getElementById('dec-immersive').style.display = 'block';
+        document.getElementById('celestial-logo').style.opacity = '0'; // Hide logo for immersion
+    } catch (err) {
+        alert("To meet the 13th Saint, please allow camera access. This mirror is for your eyes only.");
+    }
+}
