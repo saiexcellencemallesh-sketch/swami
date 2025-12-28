@@ -3,206 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bhakthi Heritage Art Calendar 2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <title>Bhakthi Heritage 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #d4af37; --brown: #4e342e; --paper: #fdf5e6; --dark: #050505; }
-        * { box-sizing: border-box; scroll-behavior: smooth; }
-        body, html { margin: 0; padding: 0; font-family: 'Lora', serif; transition: background 2s ease, color 2s ease; overflow-x: hidden; }
-
-        /* CELESTIAL LOGO (MOON TO SUN TRANSITION) */
-        #celestial-logo {
-            position: fixed; z-index: 9999;
-            width: 115px; height: 115px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            text-align: center; font-family: 'Cinzel'; font-size: 8.5px;
-            line-height: 1.2; font-weight: bold; pointer-events: none;
-            transition: all 2.2s cubic-bezier(0.4, 0, 0.2, 1);
-            padding: 12px; color: var(--brown);
-        }
-
-        /* Positions: Moon (Bottom Left) vs Sun (Top Left) */
-        .moon { background: #fff; box-shadow: 0 0 35px #fff; border: 2px solid #eee; left: 30px; top: 140px; }
-        .sun { background: radial-gradient(circle, #fff700 0%, #ffae00 100%); border: 3px double var(--gold); box-shadow: 0 0 55px #ffae00; left: 30px; top: 30px; }
-
-        /* THEMES */
-        .theme-dark { background: var(--dark); color: #fff; }
-        .theme-light { background: var(--paper); color: var(--brown); }
-        .theme-radiant { background: linear-gradient(135deg, #fff 0%, var(--gold) 100%); color: #000; }
-
-        #audio-toggle {
-            position: fixed; top: 25px; right: 25px; z-index: 9999;
-            background: rgba(255,255,255,0.1); border: 1px solid var(--gold);
-            color: var(--gold); padding: 10px 20px; border-radius: 30px;
-            font-family: 'Cinzel'; font-size: 0.7rem; cursor: pointer; backdrop-filter: blur(10px);
-        }
-
-        .texture { position: fixed; inset: 0; pointer-events: none; z-index: 500; opacity: 0.04; background-image: url('https://www.transparenttextures.com/patterns/parchment.png'); }
-
-        .page { display: none; min-height: 100vh; position: relative; padding: 180px 20px 60px; z-index: 10; }
-        .page.active { display: block; animation: fadeIn 1.5s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
-        .container { max-width: 850px; margin: 0 auto; }
-        .card { 
-            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); 
-            border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 15px;
-            padding: 45px; margin-bottom: 50px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-        .theme-light .card { background: rgba(255, 255, 255, 0.75); color: var(--brown); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-
-        h1 { font-family: 'Cinzel', serif; font-size: clamp(1.8rem, 8vw, 3rem); margin: 0; color: var(--gold); text-align: center; line-height: 1.2; }
-        .tagline { font-family: 'Cinzel'; letter-spacing: 3px; display: block; text-align: center; font-size: 0.85rem; margin-top: 5px; color: var(--gold); font-weight: bold; }
-
-        p { line-height: 2; font-size: 1.15rem; margin-bottom: 25px; text-align: justify; }
-        .letter { font-style: italic; border-left: 4px solid var(--gold); padding: 20px 30px; margin: 40px 0; background: rgba(212, 175, 55, 0.08); border-radius: 0 10px 10px 0; font-size: 1.25rem; color: var(--gold); }
-        .theme-light .letter { background: rgba(212, 175, 55, 0.05); color: var(--brown); }
-
-        .vid-box { position: relative; width: 100%; padding-bottom: 56.25%; background-color: #000; border: 1px solid var(--gold); margin: 30px 0; cursor: pointer; }
-        .vid-box::before { content: '▶ TOUCH TO WITNESS'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.85); color: var(--gold); padding: 15px 30px; font-family: 'Cinzel'; z-index: 2; border: 1px solid var(--gold); }
-        .vid-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-
-        .btn { background: var(--gold); color: #000; padding: 20px 60px; font-family: 'Cinzel'; font-weight: bold; border-radius: 4px; cursor: pointer; border: none; font-size: 1.1rem; transition: 0.3s; }
-        .btn:hover { background: #fff; transform: translateY(-3px); }
-
-        .footer { padding: 80px 20px; text-align: center; border-top: 1px solid var(--gold); font-size: 0.85rem; color: #888; background: #000; line-height: 2; }
-        .theme-light .footer { background: #fdf5e6; color: #777; }
-        .footer b { color: var(--gold); }
-
-        #cam-frame { width: 300px; height: 300px; border: 8px double var(--gold); border-radius: 50%; margin: 30px auto; overflow: hidden; display: none; box-shadow: 0 0 50px var(--gold); background: #000; }
-        #video-el { width: 100%; height: 100%; object-fit: cover; }
-
-        @media (max-width: 600px) { .card { padding: 25px; } #celestial-logo { width: 95px; height: 95px; font-size: 7.5px; left: 15px; } .moon { top: 120px; } .sun { top: 20px; } }
+        body { background: #050505; color: #fff; font-family: 'Lora', serif; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; text-align: center; }
+        .intro-card { padding: 40px; border: 1px solid #d4af37; border-radius: 15px; background: rgba(255,255,255,0.05); max-width: 500px; }
+        h1 { font-family: 'Cinzel'; color: #d4af37; }
+        .btn { background: #d4af37; color: #000; padding: 15px 30px; border: none; font-family: 'Cinzel'; font-weight: bold; cursor: pointer; margin-top: 20px; text-decoration: none; display: inline-block; }
     </style>
 </head>
-<body class="theme-dark">
-
-    <div class="texture"></div>
-    <div id="celestial-logo" class="moon">BHAKTHI<br>HERITAGE<br>ART CALENDAR<br>2026</div>
-    <button id="audio-toggle" onclick="toggleAudio()">🔊 SOUNDSCAPE: OFF</button>
-
-    <script type="text/template" id="footer-content">
-        <b>Bhakthi Heritage Art Calendar 2026 Project</b><br>
-        A tribute to the heros and sheros of the Bhakthi Movement<br>
-        Design: <b>Sweta Sairam</b> | Content: <b>Sai Mallesh</b><br>
-        Follow: <b>@swetcha_art</b> & <b>@Sai_prema_photography</b>
-    </script>
-
-    <section id="intro" class="page active">
-        <div class="container" style="text-align: center;">
-            <header><h1>A New Beginning for 2026</h1></header>
-            <div class="card">
-                <p>Every great discovery can begin with a single, simple step. As we step into 2026, let’s choose to start this chapter with joy and a smile that comes from within.</p>
-                <p>We wish you a Happy New Year filled with light and peace. With a smile on your face and courage in your heart, you can begin the most beautiful discovery—the journey back to yourself.</p>
-                <button class="btn" onclick="showSection('jan')">STEP VIRTUALLY INTO BHAKTHI 2026</button>
-            </div>
-        </div>
-        <div class="footer"></div>
-    </section>
-
-    <section id="jan" class="page">
-        <div class="container">
-            <header><h1>The Essence of Devotion</h1><span class="tagline">January</span></header>
-            <div class="card">
-                <div class="letter" style="text-align: center; border: none; font-size: 1.5rem;">
-                    "Asatoma Sadgamaya... May your darkness turn into light."
-                </div>
-                <p>Bhakti is more than just a religious practice; it is a profound emotional and spiritual experience of "surrender through love.".</p>
-                
-                <h3>1. Mathematics and Bhakthi!</h3>
-                <div class="vid-box" onclick="playV(this,'jfKXI_5wLGs')"></div>
-
-                <h3>2. The Bhakti Movement: A Social Revolution</h3>
-                <div class="vid-box" onclick="playV(this,'V2aDhYMspqQ')"></div>
-
-                <h3>3. The Three Pillars of Practice</h3>
-                <p>Traditionally, Bhakti is anchored by <b>Shravana</b>, <b>Kirtana</b>, and <b>Smarana</b>. Explore the story of <b>Saint Namdev</b>.</p>
-                <div class="vid-box" onclick="playV(this,'uW6pd1PSe3g')"></div>
-
-                <p><b>Modern Metaphor:</b> The viral song "Chor" by Justh.</p>
-                <div class="vid-box" onclick="playV(this,'Gg48H-lrZHo')"></div>
-            </div>
-        </div>
-        <div class="footer"></div>
-    </section>
-
-    <section id="feb" class="page">
-        <div class="container">
-            <header><h1>Sant Tulsidas</h1><span class="tagline">February</span></header>
-            <div class="card">
-                <p>Sant Tulsidas turned passion into divine fire. His <i>Ramcharitmanas</i> brought the sacred within reach of every heart.</p>
-                <div class="letter">"Redirect your energy, and you will find your wings."</div>
-                <div class="vid-box" onclick="playV(this,'4-BzjHYhc-M')"></div>
-            </div>
-        </div>
-        <div class="footer"></div>
-    </section>
-
-    <section id="mar" class="page"><div class="container"><header><h1>Goda Devi (Andal)</h1></header><div class="card"><div class="vid-box" onclick="playV(this,'4ESHzf8FSzU')"></div></div></div><div class="footer"></div></section>
-    <section id="apr" class="page"><div class="container"><header><h1>Saint Tyagaraja</h1></header><div class="card"><div class="vid-box" onclick="playV(this,'yhjND38WN54')"></div></div></div><div class="footer"></div></section>
-    <section id="may" class="page"><div class="container"><header><h1>Saint Sakkubai</h1></header><div class="card"><div class="vid-box" onclick="playV(this,'ZckaWGoDwys')"></div></div></div><div class="footer"></div></section>
-    <section id="jun" class="page"><div class="container"><header><h1>Saint Kabir</h1></header><div class="card"><div class="vid-box" onclick="playV(this,'BzaAv6x31Ro')"></div></div></div><div class="footer"></div></section>
-    <section id="jul" class="page"><div class="container"><header><h1>Sant Tukaram</h1></header><div class="card"><div class="vid-box" onclick="playV(this,'HoebKceFt5o')"></div></div></div><div class="footer"></div></section>
-    <section id="aug" class="page"><div class="container"><header><h1>Sharada Maa</h1></header><div class="card"><div class="vid-box" onclick="playV(this,'WSnwWLfDAzE')"></div></div></div><div class="footer"></div></section>
-    <section id="sep" class="page"><div class="container"><header><h1>Sant Meerabai</h1></header><div class="card"><div class="vid-box" onclick="playV(this,'hfSFGnoUOYg')"></div></div></div><div class="footer"></div></section>
-    <section id="oct" class="page"><div class="container"><header><h1>Akka Mahadevi</h1></header><div class="card"><div class="vid-box" onclick="playV(this,'kv8ZsleTCCs')"></div></div></div><div class="footer"></div></section>
-    <section id="nov" class="page"><div class="container"><header><h1>Guru Nanak</h1></header><div class="card"><div class="vid-box" onclick="playV(this,'Ur_8Kp2bPBg')"></div></div></div><div class="footer"></div></section>
-
-    <section id="dec" class="page theme-radiant">
-        <div class="container" style="text-align: center;">
-            <header><h1>The Final Reveal</h1><span class="tagline">December</span></header>
-            <div class="card">
-                <div id="cam-frame"><video id="video-el" autoplay playsinline></video></div>
-                <div id="mirror-btn-wrap"><button class="btn" onclick="openMirror()">REVEAL THE 13TH SAINT</button></div>
-                <p>As <b>Swami Vivekananda</b> said: "Every soul is potentially divine."</p>
-            </div>
-        </div>
-        <div class="footer"></div>
-    </section>
+<body>
+    <div class="intro-card">
+        <h1>Bhakthi Heritage 2026</h1>
+        <p>Step into a journey of devotion and art.</p>
+        <a href="jan.html" class="btn">BEGIN THE JOURNEY</a>
+    </div>
 
     <script>
-        let isAudioOn = false;
-        const mainAudio = new Audio();
-        mainAudio.loop = true;
-        const audioData = { intro: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_821815d654.mp3' };
-
-        function toggleAudio() {
-            isAudioOn = !isAudioOn;
-            const btn = document.getElementById('audio-toggle');
-            if (isAudioOn) { btn.innerHTML = "🔊 SOUNDSCAPE: ON"; mainAudio.play(); } 
-            else { btn.innerHTML = "🔊 SOUNDSCAPE: OFF"; mainAudio.pause(); }
-        }
-
-        function showSection(id) {
-            const theme = (id === 'intro') ? 'theme-dark' : (id === 'dec' ? 'theme-radiant' : 'theme-light');
-            document.body.className = theme;
-            const logo = document.getElementById('celestial-logo');
-            logo.className = (id === 'intro') ? 'moon' : 'sun';
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            const target = document.getElementById(id);
-            if (target) { target.classList.add('active'); window.scrollTo(0,0); }
-        }
-
-        function playV(div, id) {
-            div.innerHTML = `<iframe width="100%" height="315" src="https://www.youtube.com/embed/${id}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-        }
-
-        async function openMirror() {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-                document.getElementById('video-el').srcObject = stream;
-                document.getElementById('cam-frame').style.display = "block";
-                document.getElementById('mirror-btn-wrap').style.display = "none";
-            } catch (err) { alert("Enable camera!"); }
-        }
-
         window.onload = function() {
-            const footerHtml = document.getElementById('footer-content').innerHTML;
-            document.querySelectorAll('.footer').forEach(f => f.innerHTML = footerHtml);
-            const p = new URLSearchParams(window.location.search).get('month');
-            showSection(p ? p.toLowerCase() : 'intro');
+            const month = new URLSearchParams(window.location.search).get('month');
+            if (month) {
+                // If URL is index.html?month=feb, it goes to feb.html
+                window.location.href = month.toLowerCase() + ".html";
+            }
         };
     </script>
 </body>
 </html>
-
