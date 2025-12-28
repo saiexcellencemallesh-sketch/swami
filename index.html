@@ -335,15 +335,34 @@
         }
 
         window.addEventListener('load', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const month = urlParams.get('month');
-            
-            if (month === 'feb') {
-                showSection('feb-gateway');
-            } else if (month === 'jan') {
-                showSection('jan');
-            }
+           const urlParams = new URLSearchParams(window.location.search);
+const month = urlParams.get('month');
 
+if (month === 'jan') {
+    showSection('jan');
+} else if (month === 'feb') {
+    showSection('feb-gateway');
+} else if (month === 'mar') {
+    showSection('mar');
+} else if (month === 'apr') {
+    showSection('apr');
+} else if (month === 'may') {
+    showSection('may');
+} else if (month === 'jun') {
+    showSection('jun');
+} else if (month === 'jul') {
+    showSection('jul');
+} else if (month === 'aug') {
+    showSection('aug');
+} else if (month === 'sep') {
+    showSection('sep');
+} else if (month === 'oct') {
+    showSection('oct');
+} else if (month === 'nov') {
+    showSection('nov');
+} else if (month === 'dec') {
+    showSection('dec');
+}
             setTimeout(() => {
                 document.getElementById('loader').style.opacity = '0';
                 setTimeout(() => document.getElementById('loader').style.display = 'none', 1500);
@@ -397,18 +416,6 @@
 </body>
 </html>
 
-// Extend the URL month logic to Dec
-window.addEventListener('load', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const month = urlParams.get('month');
-    const monthMap = { 
-        'jan':'jan', 'feb':'feb-gateway', 'mar':'mar', 'apr':'apr', 
-        'may':'may', 'jun':'jun', 'jul':'jul', 'aug':'aug', 
-        'sep':'sep', 'oct':'oct', 'nov':'nov', 'dec':'dec' 
-    };
-    if (monthMap[month]) showSection(monthMap[month]);
-});
-
 // Camera logic for December
 async function startCameraMirror() {
     try {
@@ -422,3 +429,4 @@ async function startCameraMirror() {
         alert("To meet the 13th Saint, please allow camera access. This mirror is for your eyes only.");
     }
 }
+
