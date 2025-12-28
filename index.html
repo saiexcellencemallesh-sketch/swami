@@ -416,17 +416,165 @@ if (month === 'jan') {
 </body>
 </html>
 
-// Camera logic for December
-async function startCameraMirror() {
-    try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        const video = document.getElementById('soul-mirror');
-        video.srcObject = stream;
-        document.getElementById('dec-entry').style.display = 'none';
-        document.getElementById('dec-immersive').style.display = 'block';
-        document.getElementById('celestial-logo').style.opacity = '0'; // Hide logo for immersion
-    } catch (err) {
-        alert("To meet the 13th Saint, please allow camera access. This mirror is for your eyes only.");
-    }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celestial Calendar</title>
+    <style>
+        body { margin: 0; background: #000; color: #fff; font-family: sans-serif; overflow-x: hidden; }
+        .section { display: none; height: 100vh; width: 100%; text-align: center; padding-top: 50px; }
+        
+        /* Celestial Logo */
+        #celestial-logo {
+            transition: opacity 1.5s ease;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        /* The Mirror Styling */
+        #soul-mirror {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            /* Important: This creates the "Mirror" effect */
+            transform: scaleX(-1); 
+            -webkit-transform: scaleX(-1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .immersive-overlay {
+            position: relative;
+            z-index: 10;
+            background: rgba(0,0,0,0.3);
+            height: 100vh;
+        }
+
+        button {
+            padding: 15px 30px;
+            background: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="celestial-logo">✧ CELESTIAL ✧</div>
+
+    <div id="jan" class="section"><h1>January: The Beginning</h1></div>
+    <div id="feb-gateway" class="section"><h1>February: The Gateway</h1></div>
+    <div id="mar" class="section"><h1>March</h1></div>
+    <div id="apr" class="section"><h1>April</h1></div>
+    <div id="may" class="section"><h1>May</h1></div>
+    <div id="jun" class="section"><h1>June</h1></div>
+    <div id="jul" class="section"><h1>July</h1></div>
+    <div id="aug" class="section"><h1>August</h1></div>
+    <div id="sep" class="section"><h1>September</h1></div>
+    <div id="oct" class="section"><h1>October</h1></div>
+    <div id="nov" class="section"><h1>November</h1></div>
+
+    <div id="dec-entry" class="section">
+        <h1>December: The 13th Saint</h1>
+        <p>To proceed, you must look into the mirror.</p>
+        <button onclick="startCameraMirror()">OPEN THE MIRROR</button>
+    </div>
+
+    <div id="dec-immersive" class="section" style="display:none;">
+        <div class="immersive-overlay">
+            <h1>You are the 13th Saint.</h1>
+            <button onclick="stopCamera()">CLOSE MIRROR</button>
+        </div>
+        <video id="soul-mirror" autoplay playsinline muted></video>
+    </div>
+
+    <script>
+        /**
+         * 1. NAVIGATION LOGIC
+         * Checks the URL ?month= and shows the correct section
+         */
+        const urlParams = new URLSearchParams(window.location.search);
+        const monthQuery = urlParams.get('month')?.toLowerCase();
+
+        const monthMap = {
+            'jan': 'jan',
+            'feb': 'feb-gateway',
+            'mar': 'mar',
+            'apr': 'apr',
+            'may': 'may',
+            'jun': 'jun',
+            'jul': 'jul',
+            'aug': 'aug',
+            'sep': 'sep',
+            'oct': 'oct',
+            'nov': 'nov',
+            'dec': 'dec-entry' // Starts at the entry button
+        };
+
+        function showSection(id) {
+            // Hide all sections first
+            document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+            // Show the target section
+            const target = document.getElementById(id);
+            if (target) target.style.display = 'block';
+        }
+
+        // Initialize view
+        if (monthQuery && monthMap[monthQuery]) {
+            showSection(monthMap[monthQuery]);
+        } else {
+            // Default if no month is found
+            document.body.innerHTML += '<p style="text-align:center">Please select a month via URL (e.g. ?month=dec)</p>';
+        }
+
+
+        /**
+         * 2. CAMERA LOGIC (DECEMBER)
+         */
+        let currentStream = null;
+
+        async function startCameraMirror() {
+            const video = document.getElementById('soul-mirror');
+            const entry = document.getElementById('dec-entry');
+            const immersive = document.getElementById('dec-immersive');
+            const logo = document.getElementById('celestial-logo');
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: "user" }, 
+                    audio: false 
+                });
+                
+                currentStream = stream;
+                video.srcObject = stream;
+                
+                // Switch UI
+                entry.style.display = 'none';
+                immersive.style.display = 'block';
+                if (logo) logo.style.opacity = '0';
+
+                // Ensure the video plays
+                await video.play();
+
+            } catch (err) {
+                console.error(err);
+                alert("The mirror remains dark. Please ensure camera access is allowed and you are using HTTPS.");
+            }
+        }
+
+        function stopCamera() {
+            if (currentStream) {
+                currentStream.getTracks().forEach(track => track.stop());
+                location.reload(); // Simplest way to reset the UI
+            }
+        }
+    </script>
+</body>
+</html>
 
