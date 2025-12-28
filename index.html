@@ -96,27 +96,14 @@
     <div id="rain-container"></div>
     <div id="lightning-flash"></div>
 
-    <section id="intro" class="page-node active">
-        <div class="container" style="text-align: center;">
-            <h1 style="font-size: 3rem;">A New Beginning for 2026</h1>
-            <div class="card">
-                <p>Every great discovery can begin with a single, simple step. As we step into 2026, let’s choose to start this chapter with joy and a smile that comes from within.</p>
-                <p>We wish you a Happy New Year filled with light and peace. With a smile on your face and courage in your heart, you can begin the most beautiful discovery—the journey back to yourself.</p>
-                <button class="btn" onclick="showSection('jan')">STEP VIRTUALLY INTO BHAKTHI 2026</button>
-            </div>
-        </div>
-    </section>
-
-    <section id="jan" class="page-node">
+    <section id="jan" class="page-node active">
         <div class="container">
             <h1 style="font-size: 3.2rem;">The Essence of Devotion</h1>
             <span style="font-family:'Cinzel'; color:var(--gold); display:block; text-align:center; letter-spacing:5px; margin-bottom:60px;">JANUARY</span>
             
             <div class="card">
-                <div class="letter" style="text-align: center; border: none; font-size: 1.5rem;">
-                    "Asatoma Sadgamaya... May your darkness turn into light."
-                </div>
-
+                <div class="letter" style="text-align: center; border: none; font-size: 1.5rem;">"Asatoma Sadgamaya... May your darkness turn into light."</div>
+                
                 <div id="bhakthi-atlas" style="margin: 60px 0; text-align: center;">
                     <h3 style="margin-bottom: 20px;">Sarva Bhakthi Atlas Map</h3>
                     <div style="width: 100%; border: 1px solid var(--gold); border-radius: 10px; padding: 20px; background: rgba(212,175,55,0.05);">
@@ -149,8 +136,8 @@
                 <div class="vid-box" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/Gg48H-lrZHo?autoplay=1\' allow=\'autoplay\' allowfullscreen></iframe>'"></div>
 
                 <div style="text-align: center; margin-top: 60px;">
-                    <div id="msg-jan" class="move-ahead-msg">The next saint is Goswami Tulsidas ji. <br><br>Scan the QR code in the calendar to experience the depths of the Ramcharitmanas.</div>
-                    <button id="btn-jan" class="btn" onclick="revealMsgOnly('msg-jan', this)">MOVE AHEAD</button>
+                    <div id="msg-jan" class="move-ahead-msg">The next saint is Goswami Tulsidas ji. <br><br>Scan the QR code in the physical calendar to experience the depths of the Ramcharitmanas.</div>
+                    <button id="btn-jan" class="btn" onclick="revealOnlyMsg('msg-jan', this)">MOVE AHEAD</button>
                 </div>
             </div>
         </div>
@@ -167,17 +154,9 @@
         <div class="container" style="text-align: center;">
             <h1 style="font-family: 'Cinzel Decorative'; font-size: 3.5rem;">February 2026</h1>
             <p style="opacity: 0.7; letter-spacing: 4px; margin-bottom: 80px;">THE LEGEND OF SANT TULSIDAS</p>
-            
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px;">
-                <div class="card" style="cursor: pointer;" onclick="showSection('feb-media')">
-                    <h3>Sacred Media</h3>
-                    <p>Curated playlists covering the profound life and immortal compositions of Tulsidas Ji.</p>
-                </div>
-                <div class="card" style="cursor: pointer; border: 2.5px solid var(--gold);" onclick="showSection('feb-journey')">
-                    <span style="font-size: 0.75rem; color: var(--gold); letter-spacing: 2px; font-weight: bold;">MOST IMMERSIVE</span>
-                    <h3>The Evolution</h3>
-                    <p>A full immersive experience. Put on your headphones and witness the redirection of a soul through severe storms.</p>
-                </div>
+                <div class="card" style="cursor: pointer;" onclick="showSection('feb-media')"><h3>Sacred Media</h3></div>
+                <div class="card" style="cursor: pointer; border: 2.5px solid var(--gold);" onclick="showSection('feb-journey')"><h3>The Evolution</h3></div>
             </div>
         </div>
         <footer class="tribute-section">
@@ -193,20 +172,10 @@
         <div class="container">
             <button class="btn" style="padding: 10px 20px; margin-bottom: 40px;" onclick="showSection('feb-gateway')">← BACK</button>
             <h2>Sacred Media Library</h2>
-            <p style="border-left: 3px solid var(--gold); padding-left: 20px; margin-bottom: 60px;">Welcome to the digital sanctuary of Sant Tulsidas Ji.</p>
-
             <h3 style="text-align: left;">The Story of Tulsidas Ji</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
-                <div class="vid-box" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/4-BzjHYhc-M?autoplay=1\' allow=\'autoplay\' allowfullscreen></iframe>'"></div>
-                <div class="vid-box" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/OxzVwF6Anzw?autoplay=1\' allow=\'autoplay\' allowfullscreen></iframe>'"></div>
-            </div>
-
-            <h3 style="text-align: left; margin-top: 60px;">Compositions</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
-                <div class="vid-box" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/z56DlPcG8k8?autoplay=1\' allow=\'autoplay\' allowfullscreen></iframe>'"></div>
-                <div class="vid-box" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/ZFb-W1PAcnI?autoplay=1\' allow=\'autoplay\' allowfullscreen></iframe>'"></div>
-                <div class="vid-box" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/R3NxAR60jlo?autoplay=1\' allow=\'autoplay\' allowfullscreen></iframe>'"></div>
-            </div>
+            <div class="vid-box" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/4-BzjHYhc-M?autoplay=1\' allowfullscreen></iframe>'"></div>
+            <h3 style="text-align: left;">Compositions</h3>
+            <div class="vid-box" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/z56DlPcG8k8?autoplay=1\' allowfullscreen></iframe>'"></div>
         </div>
         <footer class="tribute-section">
             <h2>Bhakthi Heritage ART Project 2026</h2>
@@ -220,78 +189,54 @@
     <section id="feb-journey" class="page-node" style="padding:0;">
         <div id="immersive-scroll-container" style="height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory;">
             <div style="position: fixed; top: 20px; right: 20px; z-index: 10001;">
-                <button class="btn" style="padding: 10px 20px;" onclick="showSection('feb-gateway')">← EXIT JOURNEY</button>
+                <button class="btn" style="padding: 10px 20px;" onclick="showSection('feb-gateway')">← EXIT</button>
             </div>
+            
             <section class="immersive-sec">
                 <div class="card" style="text-align: center;">
                     <h1 style="font-size: 4rem; font-family: 'Cinzel Decorative';">Tulsidas: The Evolution</h1>
                     <p>A mortal passion transformed into a divine flame.</p>
-                    <p style="font-size: 0.9rem; letter-spacing: 2px;">SCROLL TO ENTER THE STORM</p>
                 </div>
             </section>
 
             <section class="immersive-sec" id="storm-start">
                 <div class="split">
-                    <div class="text-block">
-                        <h2>The Severe Storm</h2>
-                        <p>Unable to stay away from Ratnavali, Tulsidas faced a thunderstorm so fierce the world seemed to end. The rain blinded the eyes, but his desire blinded his soul.</p>
-                    </div>
-                    <div class="img-block"><img src="https://github.com/saiexcellencemallesh-sketch/swami/blob/main/The%20Night%20of%20Awakening.png?raw=true"></div>
+                    <div class="text-block"><h2>The Severe Storm</h2><p>Unable to stay away from Ratnavali, Tulsidas faced a thunderstorm so fierce the world seemed to end. The rain blinded the eyes, but his desire blinded his soul.</p></div>
+                    <div class="img-block"><img src="https://github.com/saiexcellencemallesh-sketch/swami/blob/main/The%20Night%20of%20Awakening.png?raw=true" alt="Storm"></div>
                 </div>
             </section>
 
             <section class="immersive-sec" id="corpse-sec">
                 <div class="split reverse">
-                    <div class="text-block">
-                        <h2>Blinded by Attachment</h2>
-                        <p>He reached the river Yamuna, flooded and dangerous. In his desperation to cross, he grabbed what he thought was a log. It was, in grim reality, a <span style="color:var(--gold); font-weight:bold;">human corpse</span>.</p>
-                    </div>
-                    <div class="img-block"><img src="https://github.com/saiexcellencemallesh-sketch/swami/blob/main/Rivee%20Sceen.png?raw=true"></div>
+                    <div class="text-block"><h2>Blinded by Attachment</h2><p>He reached the river Yamuna, flooded and dangerous. In his desperation to cross, he grabbed a human corpse thinking it was a log.</p></div>
+                    <div class="img-block"><img src="https://github.com/saiexcellencemallesh-sketch/swami/blob/main/Rivee%20Sceen.png?raw=true" alt="Corpse"></div>
                 </div>
             </section>
 
             <section class="immersive-sec" id="wake-sec">
                 <div class="split">
-                    <div class="text-block">
-                        <h2>The Mirror of Truth</h2>
-                        <p>After climbing a <span style="color:var(--gold); font-weight:bold;">venomous snake</span> to reach her, his wife delivered the rebuke: "If you had but half this devotion for Lord Rama, you would have crossed the ocean of existence forever."</p>
-                    </div>
-                    <div class="img-block"><img src="https://github.com/saiexcellencemallesh-sketch/swami/blob/main/Tulsidas%20Wife.png?raw=true"></div>
+                    <div class="text-block"><h2>The Mirror of Truth</h2><p>After climbing a venomous snake to reach her, his wife delivered the rebuke that changed history.</p></div>
+                    <div class="img-block"><img src="https://github.com/saiexcellencemallesh-sketch/swami/blob/main/Tulsidas%20Wife.png?raw=true" alt="Wife"></div>
                 </div>
             </section>
 
             <section class="immersive-sec theme-light" id="the-shift">
                 <div class="split reverse">
-                    <div class="text-block">
-                        <h2>The Shift</h2>
-                        <p>The illusion collapsed. The man who risked everything to get in, now walked away into the night—stepping into the light of Truth.</p>
-                    </div>
-                    <div class="img-block"><img src="https://github.com/saiexcellencemallesh-sketch/swami/blob/main/Journey%20afterward%20-1.png?raw=true"></div>
+                    <div class="text-block"><h2>The Shift</h2><p>The illusion collapsed. He walked away into the light of Truth.</p></div>
+                    <div class="img-block"><img src="https://github.com/saiexcellencemallesh-sketch/swami/blob/main/Journey%20afterward%20-1.png?raw=true" alt="Shift"></div>
                 </div>
             </section>
 
             <section class="immersive-sec theme-light">
-                <div class="split">
-                    <div class="text-block">
-                        <h2>The Miracle</h2>
-                        <p>Legend says while imprisoned, Tulsidas composed the Hanuman Chalisa, and an army of monkeys suddenly attacked the palace, forcing his release with honor.</p>
-                    </div>
-                    <div class="img-block"><img src="https://github.com/saiexcellencemallesh-sketch/swami/blob/main/Journey%20afterwards%202.png?raw=true"></div>
-                </div>
-            </section>
-
-            <section class="immersive-sec theme-light" style="background: var(--paper);">
                 <div class="finale-card">
                     <div class="sound-badge">🔊 SOUNDSCAPE: ACTIVE</div>
                     <h2 class="observe-title">OBSERVE YOURSELF</h2>
-                    <p class="observe-text">
-                        How are you satiating your burning desire? Are you using your energy for short-term gain, or are you using it to love, embrace, grow in your real self, and achieve the purpose for which you were born?
-                    </p>
+                    <p class="observe-text">How are you satiating your burning desire? Are you using your energy for short-term gain, or are you using it to love, embrace, grow in your real self, and achieve the purpose for which you were born?</p>
                     <div class="bh-footer">BHAKTI HERITAGE 2026</div>
                     
                     <div style="margin-top: 60px;">
                         <div id="msg-feb" class="move-ahead-msg">The next saint is Andal Amma. She found divine love in the fragrant gardens of Srivilliputhur. <br><br>Scan the QR code in the calendar to experience her sacred Tiruppavai.</div>
-                        <button id="btn-feb" class="btn" onclick="revealMsgOnly('msg-feb', this)">SCAN THE NEXT SAINT</button>
+                        <button id="btn-feb" class="btn" onclick="revealOnlyMsg('msg-feb', this)">SCAN THE NEXT SAINT</button>
                     </div>
                 </div>
             </section>
@@ -299,7 +244,7 @@
     </section>
 
     <script>
-        // SOUND ENGINE - CONFIGURED TO 5% VOLUME
+        // SOUND ENGINE - UPDATED TO 5% VOLUME
         const rainSound = new Audio('https://www.soundjay.com/nature/rain-01.mp3');
         const thunderSound = new Audio('https://www.soundjay.com/nature/thunder-01.mp3');
         
@@ -309,17 +254,13 @@
 
         function showSection(id) {
             document.querySelectorAll('.page-node').forEach(p => p.classList.remove('active'));
-            const node = document.getElementById(id);
-            node.classList.add('active');
+            document.getElementById(id).classList.add('active');
             
             const logo = document.getElementById('celestial-logo');
             if(id === 'jan') {
                 document.body.className = 'theme-light';
                 logo.className = 'sun-radiant';
                 rainSound.pause();
-            } else if (id === 'feb-journey' || id === 'feb-gateway' || id === 'feb-media') {
-                document.body.className = 'theme-dark';
-                logo.className = 'moon-cloudy';
             } else {
                 document.body.className = 'theme-dark';
                 logo.className = 'moon-cloudy';
@@ -327,41 +268,35 @@
             window.scrollTo(0,0);
         }
 
-        // Logic to show message and STOP
-        function revealMsgOnly(msgId, btn) {
+        function revealOnlyMsg(msgId, btn) {
             document.getElementById(msgId).style.display = 'block';
             btn.style.display = 'none';
             document.getElementById(msgId).scrollIntoView({ behavior: 'smooth' });
         }
 
         window.addEventListener('load', () => {
-           const urlParams = new URLSearchParams(window.location.search);
+            const urlParams = new URLSearchParams(window.location.search);
 const month = urlParams.get('month');
 
-if (month === 'jan') {
-    showSection('jan');
-} else if (month === 'feb') {
-    showSection('feb-gateway');
-} else if (month === 'mar') {
-    showSection('mar');
-} else if (month === 'apr') {
-    showSection('apr');
-} else if (month === 'may') {
-    showSection('may');
-} else if (month === 'jun') {
-    showSection('jun');
-} else if (month === 'jul') {
-    showSection('jul');
-} else if (month === 'aug') {
-    showSection('aug');
-} else if (month === 'sep') {
-    showSection('sep');
-} else if (month === 'oct') {
-    showSection('oct');
-} else if (month === 'nov') {
-    showSection('nov');
-} else if (month === 'dec') {
-    showSection('dec');
+// Define which section belongs to which month key
+const monthSections = {
+    'jan': 'jan',
+    'feb': 'feb-gateway',
+    'mar': 'mar',
+    'apr': 'apr',
+    'may': 'may',
+    'jun': 'jun',
+    'jul': 'jul',
+    'aug': 'aug',
+    'sep': 'sep',
+    'oct': 'oct',
+    'nov': 'nov',
+    'dec': 'dec'
+};
+
+// Check if the month exists in our object, then show it
+if (month && monthSections[month]) {
+    showSection(monthSections[month]);
 }
             setTimeout(() => {
                 document.getElementById('loader').style.opacity = '0';
@@ -379,22 +314,21 @@ if (month === 'jan') {
             rainCont.appendChild(drop);
         }
 
-        // IMMERSIVE OBSERVER (CELESTIAL TRANSITION)
         const logo = document.getElementById('celestial-logo');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     if (['storm-start', 'corpse-sec'].includes(entry.target.id)) {
-                        rainCont.style.opacity = "1";
+                        document.getElementById('rain-container').style.opacity = "1";
                         logo.className = 'moon-cloudy';
                         rainSound.play();
                     } else if (entry.target.id === 'the-shift') {
                         logo.className = 'sun-radiant';
-                        rainCont.style.opacity = "0";
+                        document.getElementById('rain-container').style.opacity = "0";
                         rainSound.pause();
                     } else if (entry.target.id === 'wake-sec') {
                         triggerLightning();
-                        rainCont.style.opacity = "0";
+                        document.getElementById('rain-container').style.opacity = "0";
                         rainSound.pause();
                     } else if (entry.target.closest('.theme-light')) {
                         logo.className = 'sun-radiant';
@@ -415,166 +349,3 @@ if (month === 'jan') {
     </script>
 </body>
 </html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Celestial Calendar</title>
-    <style>
-        body { margin: 0; background: #000; color: #fff; font-family: sans-serif; overflow-x: hidden; }
-        .section { display: none; height: 100vh; width: 100%; text-align: center; padding-top: 50px; }
-        
-        /* Celestial Logo */
-        #celestial-logo {
-            transition: opacity 1.5s ease;
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-
-        /* The Mirror Styling */
-        #soul-mirror {
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-            /* Important: This creates the "Mirror" effect */
-            transform: scaleX(-1); 
-            -webkit-transform: scaleX(-1);
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-
-        .immersive-overlay {
-            position: relative;
-            z-index: 10;
-            background: rgba(0,0,0,0.3);
-            height: 100vh;
-        }
-
-        button {
-            padding: 15px 30px;
-            background: white;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-
-    <div id="celestial-logo">✧ CELESTIAL ✧</div>
-
-    <div id="jan" class="section"><h1>January: The Beginning</h1></div>
-    <div id="feb-gateway" class="section"><h1>February: The Gateway</h1></div>
-    <div id="mar" class="section"><h1>March</h1></div>
-    <div id="apr" class="section"><h1>April</h1></div>
-    <div id="may" class="section"><h1>May</h1></div>
-    <div id="jun" class="section"><h1>June</h1></div>
-    <div id="jul" class="section"><h1>July</h1></div>
-    <div id="aug" class="section"><h1>August</h1></div>
-    <div id="sep" class="section"><h1>September</h1></div>
-    <div id="oct" class="section"><h1>October</h1></div>
-    <div id="nov" class="section"><h1>November</h1></div>
-
-    <div id="dec-entry" class="section">
-        <h1>December: The 13th Saint</h1>
-        <p>To proceed, you must look into the mirror.</p>
-        <button onclick="startCameraMirror()">OPEN THE MIRROR</button>
-    </div>
-
-    <div id="dec-immersive" class="section" style="display:none;">
-        <div class="immersive-overlay">
-            <h1>You are the 13th Saint.</h1>
-            <button onclick="stopCamera()">CLOSE MIRROR</button>
-        </div>
-        <video id="soul-mirror" autoplay playsinline muted></video>
-    </div>
-
-    <script>
-        /**
-         * 1. NAVIGATION LOGIC
-         * Checks the URL ?month= and shows the correct section
-         */
-        const urlParams = new URLSearchParams(window.location.search);
-        const monthQuery = urlParams.get('month')?.toLowerCase();
-
-        const monthMap = {
-            'jan': 'jan',
-            'feb': 'feb-gateway',
-            'mar': 'mar',
-            'apr': 'apr',
-            'may': 'may',
-            'jun': 'jun',
-            'jul': 'jul',
-            'aug': 'aug',
-            'sep': 'sep',
-            'oct': 'oct',
-            'nov': 'nov',
-            'dec': 'dec-entry' // Starts at the entry button
-        };
-
-        function showSection(id) {
-            // Hide all sections first
-            document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
-            // Show the target section
-            const target = document.getElementById(id);
-            if (target) target.style.display = 'block';
-        }
-
-        // Initialize view
-        if (monthQuery && monthMap[monthQuery]) {
-            showSection(monthMap[monthQuery]);
-        } else {
-            // Default if no month is found
-            document.body.innerHTML += '<p style="text-align:center">Please select a month via URL (e.g. ?month=dec)</p>';
-        }
-
-
-        /**
-         * 2. CAMERA LOGIC (DECEMBER)
-         */
-        let currentStream = null;
-
-        async function startCameraMirror() {
-            const video = document.getElementById('soul-mirror');
-            const entry = document.getElementById('dec-entry');
-            const immersive = document.getElementById('dec-immersive');
-            const logo = document.getElementById('celestial-logo');
-
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ 
-                    video: { facingMode: "user" }, 
-                    audio: false 
-                });
-                
-                currentStream = stream;
-                video.srcObject = stream;
-                
-                // Switch UI
-                entry.style.display = 'none';
-                immersive.style.display = 'block';
-                if (logo) logo.style.opacity = '0';
-
-                // Ensure the video plays
-                await video.play();
-
-            } catch (err) {
-                console.error(err);
-                alert("The mirror remains dark. Please ensure camera access is allowed and you are using HTTPS.");
-            }
-        }
-
-        function stopCamera() {
-            if (currentStream) {
-                currentStream.getTracks().forEach(track => track.stop());
-                location.reload(); // Simplest way to reset the UI
-            }
-        }
-    </script>
-</body>
-</html>
-
